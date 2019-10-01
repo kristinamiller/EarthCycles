@@ -1,0 +1,26 @@
+body {
+  
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: white;
+  /* background: skyblue; */
+  /* background: -webkit-linear-gradient(rgb(85, 85, 112), #30303C);
+  background: linear-gradient(rgb(93, 188, 231), rgb(25, 125, 207)); */
+
+}
+
+.main-section {
+  width: 100%;
+  z-index: -5;
+}
+
+.background-image {
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  z-index: 0;
+}
+
+canvas {
+  
+}
