@@ -8,6 +8,8 @@ class Raindrop {
     this.vel = this.generateVelocity();
     this.ctx = options.ctx;
     this.fall = this.fall.bind(this);
+    this.ecosystem = options.ecosystem;
+    this.length = this.generateLength();
   }
 
   getRandomNum(min, max) {
@@ -22,13 +24,25 @@ class Raindrop {
   }
 
   generateVelocity() {
-    let velocities = [2, 2.5, 3];
+    let velocities = [4, 5, 6];
     let vel = velocities[Math.floor(Math.random()*velocities.length)]
     return vel;
   }
 
+  generateLength() {
+    let length = this.getRandomNum(10, 20);
+    return length;
+  }
+
   generateColor() {
-    let colors = ["rgba(42, 75, 180, 0.692)", "rgba(42, 75, 180, 0.992)", "rgba(42, 81, 180, 0.767)", "rgba(42, 61, 180, 0.367)"];
+    let colors = [
+      "rgba(197, 201, 221, 0.76)", 
+      "rgba(197, 201, 221, 0.56)", 
+      "rgba(197, 201, 221, 0.96)"
+      // "rgba(207, 229, 247, 0.135)", 
+      // "rgba(207, 229, 247, 0.335)", 
+      // "rgba(207, 229, 247, 0.235)", 
+      ];
     let color = colors[Math.floor(Math.random() * colors.length)]
     return color;
   }
@@ -44,7 +58,7 @@ class Raindrop {
     // this.ctx.fillStyle = this.color;
     // this.ctx.fillRect(this.pos[0], this.pos[1], 0.5, 5);
     this.ctx.moveTo(this.pos[0], this.pos[1])
-    this.ctx.lineTo(this.pos[0], (this.pos[1]+ 10));
+    this.ctx.lineTo(this.pos[0], (this.pos[1] + 10));
     this.ctx.strokeStyle = this.color;
     this.ctx.lineWidth = 1;
     this.ctx.stroke();
@@ -55,12 +69,11 @@ class Raindrop {
 
   fall() {
     if (this.pos[1] > window.innerHeight) {
-      this.pos = this.generatePosition();
-      this.vel = this.generateVelocity();
+      this.ecosystem.removeRaindrop(this);
     }
   
     this.pos[1] += this.vel;
-    this.vel = this.vel + 0.1;
+    this.vel = this.vel + 0.2;
 
     // this.pos[1] += 1;
   }

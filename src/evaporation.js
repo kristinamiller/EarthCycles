@@ -5,14 +5,15 @@ class Evaporation {
     this.origin = [100, window.innerHeight * 0.8];
     this.x1 = this.pos[0];
     this.x2 = this.pos[0] - 30;
+    this.x2origin = this.pos[0] - 30;
     this.x3 = this.pos[0] + 30;
-    this.squiggleCount = 1;
+    this.x3origin = this.pos[0] + 30;
+    this.x4 = this.pos[0];
+    this.squiggleCount = 0.5;
+    this.squiggleCount2 = -0.5;
   }
 
   draw() {
-    let x1 = this.pos[0];
-    let x2 = x1 - 30;
-    let x3 = x1 + 30;
     let y1 = this.pos[1];
     let y2 = y1 - 40;
     let y3 = y1 - 50;
@@ -20,25 +21,35 @@ class Evaporation {
     let y5 = y1 - 120;
     let y6 = y1 - 150;
     this.ctx.beginPath();
-    this.ctx.moveTo(this.origin[0], y1)
-    this.ctx.bezierCurveTo(x2, y2, x3, y3, x1, y4);
-    this.ctx.bezierCurveTo(x1, y4, x2, y5, x1, y6);
+    this.ctx.moveTo(this.x1, y1)
+    this.ctx.bezierCurveTo(this.x2, y2, this.x3, y3, this.x4, y4);
+    // this.ctx.bezierCurveTo(this.x4, y4, this.x2, y5, this.x1, y6);
     this.ctx.strokeStyle = "green";
     this.ctx.lineWidth = 1;
     this.ctx.stroke();
   }
 
   evaporate() {
-    if (this.pos[0] > this.origin[0] + 20) {
-      this.squiggleCount = -1;
+    let opposite = 0;
+    if (this.x1 > this.origin[0] + 10) {
+      this.squiggleCount = -0.5;
     }
-    if (this.pos[0] < this.origin[0] - 20) {
-      this.squiggleCount = 1;
+    if (this.x1 < this.origin[0] - 10) {
+      this.squiggleCount = 0.5;
     }
-  
-    this.pos[0] += this.squiggleCount;
+    if (this.x2 > this.origin[0] + 30) {
+      this.squiggleCount2 = -0.5;
+    }
+    if (this.x2 < this.origin[0] - 30) {
+      this.squiggleCount2 = 0.5;
+    }
 
+    this.x1 += this.squiggleCount;
+    this.x3 += this.squiggleCount;
 
+    this.x2 += this.squiggleCount2;
+    this.x4 += this.squiggleCount2;
+    
    }
   
     

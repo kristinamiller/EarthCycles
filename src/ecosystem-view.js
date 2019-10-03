@@ -8,18 +8,19 @@ class EcosystemView {
   }
 
   start() {
-    this.ecosystem.draw();
-    requestAnimationFrame(this.animate); //like an event handler 
-    // this.makeBase();
+    let context = this.ctx;
+    let ecosystem = this.ecosystem;
+    let baseImage = new Image();
+    let that = this;
+    baseImage.src = '../assets/images/gradient-lake-background.png';
+    baseImage.onload = function () {
+      context.drawImage(baseImage, -100, -100);
+      ecosystem.draw();
+      requestAnimationFrame(that.animate); 
+    }
   }
 
-  // makeBase() {
-  //   let baseImage = new Image();
-  //   baseImage.src = '../assets/images/gradient-lake-background.png';
-  //   baseImage.onload = function () {
-  //     this.ctx.drawImage(baseImage, 0, 0);
-  //   }
-  // }
+
 
   animate() {
     requestAnimationFrame(this.animate);
