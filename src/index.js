@@ -3,6 +3,8 @@ import EcosystemView from './ecosystem-view';
 
 document.addEventListener("DOMContentLoaded", function () {
   const canvasEl = document.getElementById("mycanvas");
+  // canvasEl.width = 300;
+  // canvasEl.height = 200;
   canvasEl.width = window.innerWidth;
   canvasEl.height = window.innerHeight;
 

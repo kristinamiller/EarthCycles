@@ -1,4 +1,5 @@
 import Raindrop from './raindrop';
+import Evaporation from './evaporation';
 
 class Ecosystem {
   constructor(ctx, ecosystem) {
@@ -6,23 +7,23 @@ class Ecosystem {
     this.ecosystem = ecosystem;
     this.rain = false;
     this.raindrops = [];
+    this.evaporation = new Evaporation({ctx: this.ctx});
   }
 
   update() {
-    this.makeRain();
+    // this.makeRain();
+
     //checks if its raining or not. if it's true, make rain.
   }
 
   addRaindrops() {
-    if (this.raindrops.length < 500) {
+    if (this.raindrops.length < 3000) {
       for (let i = 0; i < 50; i++) {
         let newRaindrop = new Raindrop({ ctx: this.ctx })
         this.raindrops.push(newRaindrop);
       }
     }
-
   }
-
 
   makeRain() {
     this.addRaindrops();
@@ -35,9 +36,12 @@ class Ecosystem {
       raindrop.draw();
       raindrop.fall();
     })
+
+   
+
+    this.evaporation.draw();
     //draw all the things. sun, rain, clouds, etc.
-    //iterates through raindrops array and draws each one. 
-    // 
+
   }
 
   

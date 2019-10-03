@@ -16,7 +16,9 @@ class Raindrop {
 
   generatePosition() {
     let xPos = Math.floor((Math.random() * (window.innerWidth)));
-    return [xPos, 0];
+    let yPositions = [-1, -5, -2];
+    let yPos = yPositions[Math.floor(Math.random() * yPositions.length)]
+    return [xPos, yPos];
   }
 
   generateVelocity() {
@@ -54,10 +56,11 @@ class Raindrop {
   fall() {
     if (this.pos[1] > window.innerHeight) {
       this.pos = this.generatePosition();
+      this.vel = this.generateVelocity();
     }
-    this.vel = this.generateVelocity();
+  
     this.pos[1] += this.vel;
-    this.vel = this.vel + 0.3;
+    this.vel = this.vel + 0.1;
 
     // this.pos[1] += 1;
   }
