@@ -86,14 +86,51 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/ecosystem-view.js":
+/*!*******************************!*\
+  !*** ./src/ecosystem-view.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ecosystem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ecosystem */ \"./src/ecosystem.js\");\n\n\nclass EcosystemView {\n  constructor(ctx) {\n    this.ctx = ctx;\n    this.ecosystem = new _ecosystem__WEBPACK_IMPORTED_MODULE_0__[\"default\"](ctx);\n    this.animate = this.animate.bind(this);\n  }\n\n  start() {\n    this.ecosystem.draw();\n    requestAnimationFrame(this.animate); //like an event handler \n  }\n\n  animate() {\n    requestAnimationFrame(this.animate);\n    this.ecosystem.update();\n    this.ecosystem.draw();\n  }\n\n}\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (EcosystemView);\n\n//# sourceURL=webpack:///./src/ecosystem-view.js?");
+
+/***/ }),
+
+/***/ "./src/ecosystem.js":
+/*!**************************!*\
+  !*** ./src/ecosystem.js ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _raindrop__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./raindrop */ \"./src/raindrop.js\");\n\n\nclass Ecosystem {\n  constructor(ctx, ecosystem) {\n    this.ctx = ctx;\n    this.ecosystem = ecosystem;\n    this.rain = false;\n    this.raindrops = [];\n  }\n\n  update() {\n    this.makeRain();\n    //checks if its raining or not. if it's true, make rain.\n  }\n\n  addRaindrops() {\n    for (let i = 0; i < 10; i++) {\n      let newRaindrop = new _raindrop__WEBPACK_IMPORTED_MODULE_0__[\"default\"]({ctx: this.ctx})\n      this.raindrops.push(newRaindrop);\n    }\n  }\n\n\n  makeRain() {\n    this.addRaindrops();\n  }\n\n  draw() {\n    this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);\n\n    this.raindrops.forEach((raindrop) => {\n      raindrop.draw();\n      raindrop.fall();\n    })\n    //draw all the things. sun, rain, clouds, etc.\n    //iterates through raindrops array and draws each one. \n   \n  }\n\n  //handle click - when someone clicks cloud, updates \n  // look up vanilla dom click event handler\n  // look up positioning of clicks on canvas\n  //\n\n  getRandomNum(min, max) {\n    Math.floor((Math.random() * (max - min) + min))\n  }\n\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Ecosystem);\n\n//# sourceURL=webpack:///./src/ecosystem.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-eval("\n\n//# sourceURL=webpack:///./src/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ecosystem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ecosystem */ \"./src/ecosystem.js\");\n/* harmony import */ var _ecosystem_view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ecosystem-view */ \"./src/ecosystem-view.js\");\n\n\n\ndocument.addEventListener(\"DOMContentLoaded\", function () {\n  const canvasEl = document.getElementById(\"mycanvas\");\n  canvasEl.width = window.innerWidth;\n  canvasEl.height = window.innerHeight;\n\n  const ctx = canvasEl.getContext(\"2d\");\n  const ecosystem = new _ecosystem__WEBPACK_IMPORTED_MODULE_0__[\"default\"](ctx);\n  new _ecosystem_view__WEBPACK_IMPORTED_MODULE_1__[\"default\"](ctx, ecosystem).start();\n});\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/raindrop.js":
+/*!*************************!*\
+  !*** ./src/raindrop.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ecosystem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ecosystem */ \"./src/ecosystem.js\");\n\n\nclass Raindrop {\n  constructor(options = {}) {\n    this.color = \"rgba(42, 75, 180, 0.5)\";\n    this.radius = 10;\n    this.pos = this.generatePosition();\n    this.vel = this.generateVelocity();\n    this.ctx = options.ctx;\n    this.fall = this.fall.bind(this);\n  }\n\n  getRandomNum(min, max) {\n    Math.floor((Math.random() * (max - min) + min))\n  }\n\n  generatePosition() {\n    let xPos = Math.floor((Math.random() * (window.innerWidth)))\n    return [xPos, 0];\n  }\n\n  generateVelocity() {\n    let velocities = [4,5,6];\n    let vel = velocities[Math.floor(Math.random()*velocities.length)]\n    return vel;\n  }\n\n  generateColor() {\n    let transparency = Math.random() * (0.9 - 0.5) + 0.5\n    return \"rgba(42, 75, 180, transparency)\"\n  }\n\n  generateRadius() {\n    let radius = this.getRandomNum(5, 10);\n    return radius;\n  }\n  \n\n  draw() {\n    this.ctx.beginPath();\n    // this.ctx.moveTo(this.pos)\n    // this.ctx.lineTo([this.pos[0], (this.pos[1]+ 5)]);\n    // this.ctx.strokeStyle() = this.color;\n    // this.ctx.lineWidth = 1;\n    // this.ctx.stroke();\n    this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, false);\n    this.ctx.fillStyle = this.color;\n    this.ctx.fill();\n  }\n\n  fall() {\n    // if (this.pos[1] > window.innerHeight) {\n    //   this.pos = this.generatePosition();\n    // }\n    this.pos[1] += this.vel;\n  }\n\n\n\n\n\n\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Raindrop);\n\n//# sourceURL=webpack:///./src/raindrop.js?");
 
 /***/ })
 
