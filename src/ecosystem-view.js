@@ -10,7 +10,16 @@ class EcosystemView {
   start() {
     this.ecosystem.draw();
     requestAnimationFrame(this.animate); //like an event handler 
+    // this.makeBase();
   }
+
+  // makeBase() {
+  //   let baseImage = new Image();
+  //   baseImage.src = '../assets/images/gradient-lake-background.png';
+  //   baseImage.onload = function () {
+  //     this.ctx.drawImage(baseImage, 0, 0);
+  //   }
+  // }
 
   animate() {
     requestAnimationFrame(this.animate);

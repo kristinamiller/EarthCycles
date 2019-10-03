@@ -14,10 +14,13 @@ class Ecosystem {
   }
 
   addRaindrops() {
-    for (let i = 0; i < 10; i++) {
-      let newRaindrop = new Raindrop({ctx: this.ctx})
-      this.raindrops.push(newRaindrop);
+    if (this.raindrops.length < 500) {
+      for (let i = 0; i < 50; i++) {
+        let newRaindrop = new Raindrop({ ctx: this.ctx })
+        this.raindrops.push(newRaindrop);
+      }
     }
+
   }
 
 
@@ -34,8 +37,11 @@ class Ecosystem {
     })
     //draw all the things. sun, rain, clouds, etc.
     //iterates through raindrops array and draws each one. 
-   
+    // 
   }
+
+  
+  
 
   //handle click - when someone clicks cloud, updates 
   // look up vanilla dom click event handler
