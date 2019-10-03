@@ -12,6 +12,7 @@ class Ecosystem {
 
   update() {
     // this.makeRain();
+    this.evaporation.evaporate();
 
     //checks if its raining or not. if it's true, make rain.
   }
@@ -40,6 +41,7 @@ class Ecosystem {
    
 
     this.evaporation.draw();
+    
     //draw all the things. sun, rain, clouds, etc.
 
   }
