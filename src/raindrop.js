@@ -19,9 +19,9 @@ class Raindrop {
 
   generatePosition() {
     let xPos = Math.floor((Math.random() * (window.innerWidth)));
-    let yPositions = [-1, -5, -2];
+    let yPositions = [-10, -20, -30, -40, -50, -60, -70, -80, -90, -100 ];
     let yPos = yPositions[Math.floor(Math.random() * yPositions.length)]
-    return [xPos, yPos];
+    return [xPos, yPos]
   }
 
   generateVelocity() {
@@ -38,7 +38,7 @@ class Raindrop {
     let colors = [
       "rgba(207, 204, 247, 0.86)", 
       "rgba(207, 204, 247, 0.96)", 
-      "rgba(162, 156, 235, 0.66)"
+      "rgba(192, 176, 235, 0.66)"
       ];
     let color = colors[Math.floor(Math.random() * colors.length)]
     return color;
@@ -51,11 +51,12 @@ class Raindrop {
   
 
   draw() {
-    let length = this.raindropLength;
-    // console.log(length)
+    let lengths = [10, 13, 17];
+    let length = lengths[Math.floor(Math.random() * lengths.length)]
+
     this.ctx.beginPath();
     this.ctx.moveTo(this.pos[0], this.pos[1])
-    this.ctx.lineTo(this.pos[0], (this.pos[1] + 10));
+    this.ctx.lineTo(this.pos[0] + 2, (this.pos[1] + length));
     this.ctx.strokeStyle = this.color;
     this.ctx.lineWidth = 1;
     this.ctx.stroke();
@@ -64,18 +65,16 @@ class Raindrop {
   }
 
   fall() {
+    let ratios = [0.5, 0.6, 0.7, 0.71, 0.71];
+    let ratio = ratios[Math.floor(Math.random() * ratios.length)]
 
-    // let stoppingPoint = this.getRandomNum(window.innerHeight * 0.71, window.innerHeight * 0.51)
-    //   if (this.count < 10) {
-    //     console.log(stoppingPoint);
-    //     this.count += 1
-    //   }
-    if (this.pos[1] > window.innerHeight * 0.7) {
+    if (this.pos[1] > window.innerHeight * ratio) {
       this.ecosystem.removeRaindrop(this);
     }
   
+    this.pos[0] += 0.2;
     this.pos[1] += this.vel;
-    this.vel = this.vel + 0.3;
+    this.vel = this.vel + 0.2;
 
     // this.pos[1] += 1;
   }

@@ -20,9 +20,8 @@ class Ecosystem {
   }
 
   addRaindrops() {
-    // if (this.raindrops.length < 100) {
-      // console.log(this.raindrops.length)
-      for (let i = 0; i < 50; i++) {
+    let numRaindrops = window.innerWidth * 0.08;
+      for (let i = 0; i < numRaindrops; i++) {
         let newRaindrop = new Raindrop({ ctx: this.ctx, ecosystem: this })
         this.raindrops.push(newRaindrop);
       }
