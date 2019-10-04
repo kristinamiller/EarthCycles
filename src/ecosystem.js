@@ -10,6 +10,7 @@ class Ecosystem {
     this.raindrops = [];
     this.evaporation = [];
     this.sun = new Sun(ctx);
+    this.clouds = [];
     this.cloud = new Cloud(ctx);
     this.count = 0;
     this.ratio = 0.8;
@@ -22,33 +23,6 @@ class Ecosystem {
     //checks if its raining or not. if it's true, make rain.
   }
 
-  makeEvaporation() {
-    
-
-    for (let i = 0; i < 3; i++) {
-      new Evaporation({ ctx: this.ctx })
-      this.evaporation.push()
-    }
-
-    
-  }
-
-  addRaindrops() {
-    let numRaindrops = window.innerWidth * 0.08;
-      for (let i = 0; i < numRaindrops; i++) {
-        let newRaindrop = new Raindrop({ ctx: this.ctx, ecosystem: this })
-        this.raindrops.push(newRaindrop);
-      }
-    
-  }
-
-  makeRain() {
-    this.addRaindrops();
-  }
-
-  removeRaindrop(raindrop) {
-    this.raindrops.splice(this.raindrops.indexOf(raindrop),1);
-  };
 
   draw() {
     this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -63,7 +37,11 @@ class Ecosystem {
     context.drawImage(baseImage, 0, window.innerHeight - height, width, height);
 
     this.sun.draw();
-    this.cloud.draw();
+
+    this.addClouds(5);
+    this.clouds.forEach((cloud) => {
+      cloud.draw();
+    })
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
@@ -77,6 +55,60 @@ class Ecosystem {
     })
 
   }
+  
+  //rain ***********
+
+  addRaindrops() {
+    let numRaindrops = window.innerWidth * 0.08;
+      for (let i = 0; i < numRaindrops; i++) {
+        let newRaindrop = new Raindrop({ ctx: this.ctx, ecosystem: this })
+        this.raindrops.push(newRaindrop);
+      }
+  }
+
+  makeRain() {
+    this.addRaindrops();
+  }
+
+  removeRaindrop(raindrop) {
+    this.raindrops.splice(this.raindrops.indexOf(raindrop),1);
+  };
+
+//clouds
+  addClouds(numClouds) {
+    let double = [(window.innerWidth * 0.25) + 100, window.innerHeight * 0.17]
+    let positions = [
+      [window.innerWidth * 0.25, window.innerHeight * 0.1],
+      [window.innerWidth * 0.45, window.innerHeight * 0.2],
+      [(window.innerWidth * 0.45) + 40, window.innerHeight * 0.2],
+      [window.innerWidth * 0.9, window.innerHeight * 0.15],
+      // [window.innerWidth * 0.28, window.innerHeight * 0.17],
+      // [window.innerWidth * 0.23, window.innerHeight * 0.15],
+      // [window.innerWidth * 0.23, window.innerHeight * 0.15],
+      [window.innerWidth * 0.73, window.innerHeight * 0.22],
+    ]
+
+    for (let i = 0; i < numClouds; i++) {
+      let newCloud = new Cloud(this.ctx, positions[i])
+      this.clouds.push(newCloud);
+    }
+  }
+
+//evaporation
+
+  makeEvaporation() {
+
+
+    for (let i = 0; i < 3; i++) {
+      new Evaporation({ ctx: this.ctx })
+      this.evaporation.push()
+    }
+
+
+  }
+
+
+
 
   
   makeBase() {
