@@ -9,6 +9,7 @@ class Ecosystem {
     this.raindrops = [];
     this.evaporation = new Evaporation({ctx: this.ctx});
     this.sun = new Sun(ctx);
+    this.count = 0;
   }
 
   update() {
@@ -38,13 +39,18 @@ class Ecosystem {
 
   draw() {
     this.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    this.sun.draw();
     
     let context = this.ctx;
     let baseImage = new Image();
     baseImage.src = '../assets/images/gradient-lake-background.png';
-    context.drawImage(baseImage, -100, -100);
+    let ratio = window.innerWidth / baseImage.width;
+    let height = baseImage.height * ratio;
+    let width = baseImage.width * ratio;
 
+    context.drawImage(baseImage, 0, window.innerHeight - height, width, height);
+
+    this.sun.draw();
+    
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
       raindrop.fall();

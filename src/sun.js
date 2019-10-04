@@ -9,7 +9,7 @@ class Sun {
 
 
   draw() {
-    this.ctx.drawImage(this.image, -100, -100);
+    this.ctx.drawImage(this.image, 0, 0);
     
   }
 

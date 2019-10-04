@@ -9,7 +9,8 @@ class Raindrop {
     this.ctx = options.ctx;
     this.fall = this.fall.bind(this);
     this.ecosystem = options.ecosystem;
-    this.length = this.generateLength();
+    this.raindropLength = this.generateLength();
+    this.count = 0;
   }
 
   getRandomNum(min, max) {
@@ -30,18 +31,14 @@ class Raindrop {
   }
 
   generateLength() {
-    let length = this.getRandomNum(10, 20);
-    return length;
+    return this.getRandomNum(10, 20);
   }
 
   generateColor() {
     let colors = [
-      "rgba(197, 201, 221, 0.76)", 
-      "rgba(197, 201, 221, 0.56)", 
-      "rgba(197, 201, 221, 0.96)"
-      // "rgba(207, 229, 247, 0.135)", 
-      // "rgba(207, 229, 247, 0.335)", 
-      // "rgba(207, 229, 247, 0.235)", 
+      "rgba(207, 204, 247, 0.86)", 
+      "rgba(207, 204, 247, 0.96)", 
+      "rgba(162, 156, 235, 0.66)"
       ];
     let color = colors[Math.floor(Math.random() * colors.length)]
     return color;
@@ -54,26 +51,31 @@ class Raindrop {
   
 
   draw() {
+    let length = this.raindropLength;
+    // console.log(length)
     this.ctx.beginPath();
-    // this.ctx.fillStyle = this.color;
-    // this.ctx.fillRect(this.pos[0], this.pos[1], 0.5, 5);
     this.ctx.moveTo(this.pos[0], this.pos[1])
     this.ctx.lineTo(this.pos[0], (this.pos[1] + 10));
     this.ctx.strokeStyle = this.color;
     this.ctx.lineWidth = 1;
     this.ctx.stroke();
-    // this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, false);
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
   }
 
   fall() {
-    if (this.pos[1] > window.innerHeight) {
+
+    // let stoppingPoint = this.getRandomNum(window.innerHeight * 0.71, window.innerHeight * 0.51)
+    //   if (this.count < 10) {
+    //     console.log(stoppingPoint);
+    //     this.count += 1
+    //   }
+    if (this.pos[1] > window.innerHeight * 0.7) {
       this.ecosystem.removeRaindrop(this);
     }
   
     this.pos[1] += this.vel;
-    this.vel = this.vel + 0.2;
+    this.vel = this.vel + 0.3;
 
     // this.pos[1] += 1;
   }

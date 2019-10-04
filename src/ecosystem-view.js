@@ -14,7 +14,7 @@ class EcosystemView {
     let that = this;
     baseImage.src = '../assets/images/gradient-lake-background.png';
     baseImage.onload = function () {
-      context.drawImage(baseImage, -100, -100);
+      context.drawImage(baseImage, 0, 0, window.innerWidth, 500);
       ecosystem.draw();
       requestAnimationFrame(that.animate); 
     }
