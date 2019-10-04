@@ -63,7 +63,7 @@ class Raindrop {
   }
 
   fall() {
-    let ratios = [0.5, 0.6, 0.7, 0.71, 0.71];
+    let ratios = [0.5, 0.6, 0.7, 0.71, 0.72, 0.73];
     let ratio = ratios[Math.floor(Math.random() * ratios.length)]
     if (this.pos[1] > window.innerHeight * ratio) {
       this.ecosystem.removeRaindrop(this);

@@ -16,7 +16,7 @@ class Ecosystem {
   }
 
   update() {
-    this.makeRain();
+    // this.makeRain();
     this.makeEvaporation();
     // this.cloud.animate();
     //checks if its raining or not. if it's true, make rain.
@@ -63,13 +63,13 @@ class Ecosystem {
     context.drawImage(baseImage, 0, window.innerHeight - height, width, height);
 
     this.sun.draw();
+    this.cloud.draw();
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
       raindrop.fall();
     })
 
-    // this.cloud.draw();
 
     this.evaporation.forEach((squiggle) => {
       squiggle.draw();

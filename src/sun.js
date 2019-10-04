@@ -1,7 +1,7 @@
 class Sun {
   constructor(ctx) {
     this.image = new Image();
-    this.image.src = '../assets/images/sunglow6.png';
+    this.image.src = '../assets/images/sun2.png';
     this.ctx = ctx;
     this.ratio = window.innerWidth * 0.00005;
     this.width = this.image.width * this.ratio;
@@ -16,10 +16,10 @@ class Sun {
     let ratio = window.innerWidth * 0.00005;
     // let height = this.image.height * ratio;
     // let width = this.image.width * ratio;
-    let height = 400;
-    let width = 400;
+    let height = 200;
+    let width = 200;
 
-    this.ctx.drawImage(this.image, window.innerWidth * 0.6, -50, width, height);
+    this.ctx.drawImage(this.image, window.innerWidth * 0.6, 50, width, height);
   }
 
   animate() {
