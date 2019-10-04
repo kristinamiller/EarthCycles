@@ -1,22 +1,36 @@
 import Raindrop from './raindrop';
 import Evaporation from './evaporation';
 import Sun from './sun';
+import Cloud from './cloud';
 
 class Ecosystem {
   constructor(ctx) {
     this.ctx = ctx;
     this.rain = false;
     this.raindrops = [];
-    this.evaporation = new Evaporation({ctx: this.ctx});
+    this.evaporation = [];
     this.sun = new Sun(ctx);
+    this.cloud = new Cloud(ctx);
     this.count = 0;
+    this.ratio = 0.8;
   }
 
   update() {
     this.makeRain();
-    // this.evaporation.evaporate();
-    // this.makeBase();
+    this.makeEvaporation();
+    // this.cloud.animate();
     //checks if its raining or not. if it's true, make rain.
+  }
+
+  makeEvaporation() {
+    
+
+    for (let i = 0; i < 3; i++) {
+      new Evaporation({ ctx: this.ctx })
+      this.evaporation.push()
+    }
+
+    
   }
 
   addRaindrops() {
@@ -41,10 +55,10 @@ class Ecosystem {
     
     let context = this.ctx;
     let baseImage = new Image();
-    baseImage.src = '../assets/images/gradient-lake-background.png';
-    let ratio = window.innerWidth / baseImage.width;
-    let height = baseImage.height * ratio;
-    let width = baseImage.width * ratio;
+    baseImage.src = '../assets/images/ecosystem-background.png';
+    this.ratio = window.innerWidth / baseImage.width;
+    let height = baseImage.height * this.ratio;
+    let width = baseImage.width * this.ratio;
 
     context.drawImage(baseImage, 0, window.innerHeight - height, width, height);
 
@@ -55,8 +69,12 @@ class Ecosystem {
       raindrop.fall();
     })
 
+    // this.cloud.draw();
 
-    // this.evaporation.draw();
+    this.evaporation.forEach((squiggle) => {
+      squiggle.draw();
+      squiggle.evaporate();
+    })
 
   }
 
@@ -64,7 +82,7 @@ class Ecosystem {
   makeBase() {
     let context = this.ctx;
     let baseImage = new Image();
-    baseImage.src = '../assets/images/gradient-lake-background.png';
+    baseImage.src = '../assets/images/ecosystem-background.png';
     baseImage.onload = function () {
       console.log("test");
       context.drawImage(baseImage, -100, -100);

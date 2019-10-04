@@ -12,7 +12,7 @@ class EcosystemView {
     let ecosystem = this.ecosystem;
     let baseImage = new Image();
     let that = this;
-    baseImage.src = '../assets/images/gradient-lake-background.png';
+    baseImage.src = '../assets/images/ecosystem-background.png';
     baseImage.onload = function () {
       context.drawImage(baseImage, 0, 0, window.innerWidth, 500);
       ecosystem.draw();
