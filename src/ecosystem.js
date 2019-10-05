@@ -63,6 +63,7 @@ class Ecosystem {
     // this.factory.draw();
     this.fish.draw();
     this.cow.draw();
+    this.cow.animate();
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();

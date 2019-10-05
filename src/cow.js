@@ -6,6 +6,10 @@ class Cow {
     this.ratio = window.innerWidth * 0.00005;
     this.width = this.image.width * this.ratio;
     this.height = this.image.height * this.ratio;
+    this.bubbleRadius = 10;
+    this.increment = 0.5;
+    this.vel = 0;
+    this.bubblePos = [280, 350];
   }
 
 
@@ -19,12 +23,25 @@ class Cow {
     this.ctx.drawImage(this.image, window.innerWidth * 0.2, window.innerHeight * 0.43, width, height);
   }
 
-  makeFarts() {
+  makeFart(numBubbles) {
+    for (let i = 0; i < numBubbles; i++) {
+      this.ctx.beginPath();
+      this.ctx.arc(this.bubblePos[0], this.bubblePos[1], this.bubbleRadius, 0, 2 * Math.PI, false);
+      this.ctx.fillStyle = "rgba(224, 135, 94, 0.949)";
+      this.ctx.fill();
+    }
 
   }
 
   animate() {
-
+    this.makeFart(1);
+    if (this.bubbleRadius > 30) {
+      this.increment = 0;
+      this.vel = 1;
+      this.makeFart(1);
+    }
+    this.bubbleRadius += this.increment;
+    // this.bubblePos[1] -= this.vel;
   }
 
 }
