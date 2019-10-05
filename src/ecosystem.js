@@ -32,7 +32,7 @@ class Ecosystem {
 
     this.clouds.forEach((cloud) => {
       // cloud.draw();
-      // cloud.animate();
+      cloud.animate();
     })
     // this.cloud.animate();
     //checks if its raining or not. if it's true, make rain.
@@ -63,7 +63,6 @@ class Ecosystem {
     // this.factory.draw();
     this.fish.draw();
     this.cow.draw();
-    this.cow.animate();
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
@@ -98,18 +97,21 @@ class Ecosystem {
 
 //clouds
   addClouds(numClouds) {
-    let positions = [
-      [window.innerWidth * 0.25, window.innerHeight * 0.1],
-      [window.innerWidth * 0.45, window.innerHeight * 0.2],
-      [(window.innerWidth * 0.45) + 40, window.innerHeight * 0.2],
-      [window.innerWidth * 0.9, window.innerHeight * 0.15],
-      [window.innerWidth * 0.73, window.innerHeight * 0.22],
-    ]
+    if (this.clouds.length < numClouds) {
+      let positions = [
+        [window.innerWidth * 0.25, window.innerHeight * 0.1],
+        [window.innerWidth * 0.45, window.innerHeight * 0.2],
+        [(window.innerWidth * 0.45) + 40, window.innerHeight * 0.2],
+        [window.innerWidth * 0.9, window.innerHeight * 0.15],
+        [window.innerWidth * 0.73, window.innerHeight * 0.22],
+      ]
 
-    for (let i = 0; i < numClouds; i++) {
-      let newCloud = new Cloud(this.ctx, positions[i])
-      this.clouds.push(newCloud);
-    }
+      for (let i = 0; i < numClouds; i++) {
+        let newCloud = new Cloud(this.ctx, positions[i])
+        this.clouds.push(newCloud);
+      }
+    } 
+
   }
 
 //evaporation

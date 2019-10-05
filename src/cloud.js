@@ -5,6 +5,7 @@ class Cloud {
     this.height = 100;
     this.increment = 0.5;
     this.pos = pos;
+    
     this.color = "rgb(215, 232, 250)";
     // this.color = "white";
     this.vel = 1;
@@ -65,7 +66,10 @@ class Cloud {
 
   animate() {
     if (this.pos[0] > window.innerWidth - 100) {
-
+      this.vel = -1;
+    }
+    if (this.pos[0] < 100) {
+      this.vel = 1;
     }
     this.pos[0] += this.vel;
 
