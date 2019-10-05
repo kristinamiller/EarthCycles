@@ -19,7 +19,7 @@ class Sun {
     let height = 200;
     let width = 200;
 
-    this.ctx.drawImage(this.image, window.innerWidth * 0.6, 50, width, height);
+    this.ctx.drawImage(this.image, window.innerWidth * 0.65, 50, width, height);
   }
 
   animate() {

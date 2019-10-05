@@ -7,16 +7,13 @@ class Cloud {
     this.pos = pos;
     this.color = "rgb(215, 232, 250)";
     // this.color = "white";
+    this.vel = 1;
   }
 
 
 
 
   draw() {
-    // let ratio = window.innerWidth * 0.00005;
-    // this.ctx.fillStyle = "rgba(188, 216, 245)";
-    // this.ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height);
-
     this.ctx.beginPath();
     this.ctx.arc(this.pos[0] + 15, this.pos[1] + 35, 25, 0, 2 * Math.PI, false);
     this.ctx.fillStyle = "pink";
@@ -41,12 +38,10 @@ class Cloud {
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
 
-
     this.ctx.beginPath();
     this.ctx.arc(this.pos[0] + 60, this.pos[1] + 30, 30, 0, 2 * Math.PI, false);
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
-
 
     this.ctx.beginPath();
     this.ctx.arc(this.pos[0] + 45, this.pos[1] + 5, 20, 0, 2 * Math.PI, false);
@@ -66,22 +61,29 @@ class Cloud {
     // this.ctx.fillStyle = "green";
     this.ctx.fill();
 
-
-
   }
 
   animate() {
-    if (this.width > 230) {
-      this.increment = -0.5;
-    } 
-    if (this.width < 200) {
-      this.increment = 0.5;
+    if (this.pos[0] > window.innerWidth - 100) {
+
     }
-    this.width += this.increment;
-    this.height += this.increment;
-    this.pos[0] -= (this.increment / 2);
-    this.pos[1] -= (this.increment / 2);
+    this.pos[0] += this.vel;
+
+
   }
+
+  // pulse() {
+  //   if (this.width > 230) {
+  //     this.increment = -0.5;
+  //   } 
+  //   if (this.width < 200) {
+  //     this.increment = 0.5;
+  //   }
+  //   this.width += this.increment;
+  //   this.height += this.increment;
+  //   this.pos[0] -= (this.increment / 2);
+  //   this.pos[1] -= (this.increment / 2);
+  // }
 
 }
 

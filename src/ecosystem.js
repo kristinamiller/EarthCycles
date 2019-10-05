@@ -2,6 +2,11 @@ import Raindrop from './raindrop';
 import Evaporation from './evaporation';
 import Sun from './sun';
 import Cloud from './cloud';
+import Tree from './tree';
+import Mushroom from './mushroom';
+import Factory from './factory';
+import Fish from './fish';
+import Cow from './cow';
 
 class Ecosystem {
   constructor(ctx) {
@@ -10,6 +15,11 @@ class Ecosystem {
     this.raindrops = [];
     this.evaporation = [];
     this.sun = new Sun(ctx);
+    this.tree = new Tree(ctx);
+    this.mushroom = new Mushroom(ctx);
+    this.factory = new Factory(ctx);
+    this.fish = new Fish(ctx);
+    this.cow = new Cow(ctx);
     this.clouds = [];
     this.cloud = new Cloud(ctx);
     this.count = 0;
@@ -19,6 +29,11 @@ class Ecosystem {
   update() {
     // this.makeRain();
     this.makeEvaporation();
+
+    this.clouds.forEach((cloud) => {
+      // cloud.draw();
+      // cloud.animate();
+    })
     // this.cloud.animate();
     //checks if its raining or not. if it's true, make rain.
   }
@@ -37,11 +52,17 @@ class Ecosystem {
     context.drawImage(baseImage, 0, window.innerHeight - height, width, height);
 
     this.sun.draw();
-
-    this.addClouds(5);
+    
+    this.addClouds(3);
     this.clouds.forEach((cloud) => {
       cloud.draw();
+      // cloud.animate();
     })
+    this.tree.draw();
+    this.mushroom.draw();
+    // this.factory.draw();
+    this.fish.draw();
+    this.cow.draw();
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
@@ -76,15 +97,11 @@ class Ecosystem {
 
 //clouds
   addClouds(numClouds) {
-    let double = [(window.innerWidth * 0.25) + 100, window.innerHeight * 0.17]
     let positions = [
       [window.innerWidth * 0.25, window.innerHeight * 0.1],
       [window.innerWidth * 0.45, window.innerHeight * 0.2],
       [(window.innerWidth * 0.45) + 40, window.innerHeight * 0.2],
       [window.innerWidth * 0.9, window.innerHeight * 0.15],
-      // [window.innerWidth * 0.28, window.innerHeight * 0.17],
-      // [window.innerWidth * 0.23, window.innerHeight * 0.15],
-      // [window.innerWidth * 0.23, window.innerHeight * 0.15],
       [window.innerWidth * 0.73, window.innerHeight * 0.22],
     ]
 
