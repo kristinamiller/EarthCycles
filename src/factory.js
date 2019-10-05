@@ -1,7 +1,7 @@
 class Factory {
   constructor(ctx) {
     this.image = new Image();
-    this.image.src = '../assets/images/factory1.png';
+    this.image.src = '../assets/images/factory2.png';
     this.ctx = ctx;
     this.ratio = window.innerWidth * 0.00005;
     this.width = this.image.width * this.ratio;
@@ -17,11 +17,11 @@ class Factory {
     // let height = 200;
     // let width = 200;
 
-    this.ctx.drawImage(this.image, window.innerWidth * 0.05, window.innerHeight * 0.3, width, height);
+    this.ctx.drawImage(this.image, window.innerWidth * 0.02, window.innerHeight * 0.3, width, height);
   }
 
   makeSmoke() {
-    
+
   }
 
   animate() {

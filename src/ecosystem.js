@@ -27,7 +27,7 @@ class Ecosystem {
   }
 
   update() {
-    // this.makeRain();
+    this.makeRain();
     this.makeEvaporation();
 
     this.clouds.forEach((cloud) => {
@@ -60,9 +60,10 @@ class Ecosystem {
     })
     this.tree.draw();
     this.mushroom.draw();
-    // this.factory.draw();
+    this.factory.draw();
     this.fish.draw();
     this.cow.draw();
+    // this.cow.animate();
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
