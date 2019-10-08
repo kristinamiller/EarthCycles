@@ -21,7 +21,12 @@ class Factory {
   }
 
   makeSmoke() {
-
+    for (let i = 0; i < numBubbles; i++) {
+      this.ctx.beginPath();
+      this.ctx.arc(this.bubblePos[0], this.bubblePos[1], this.bubbleRadius, 0, 2 * Math.PI, false);
+      this.ctx.fillStyle = "rgba(224, 135, 94, 0.949)";
+      this.ctx.fill();
+    }
   }
 
   animate() {
