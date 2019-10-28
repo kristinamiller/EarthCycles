@@ -1,19 +1,25 @@
 class Evaporation {
-  constructor(options = {}) {
-    this.ctx = options.ctx;
-    this.pos = [window.innerWidth * 0.7, window.innerHeight * 0.7];
-    this.origin = [window.innerWidth * 0.7, window.innerHeight * 0.7];
+  constructor(ctx, pos) {
+    this.ctx = ctx;
+    this.pos = pos;
+    this.origin = this.pos.slice();
     this.x1 = this.pos[0];
-    this.x2 = this.pos[0] - 30;
+    this.x2 = this.pos[0] - 15;
     this.x2origin = this.pos[0] - 30;
-    this.x3 = this.pos[0] + 30;
-    this.x3origin = this.pos[0] + 30;
+    this.x3 = this.pos[0] + 15;
+    this.x3origin = this.pos[0] + 20;
     this.x4 = this.pos[0];
-    this.squiggleCount = 0.5;
+    this.squiggleCount = 0.8;
     this.squiggleCount2 = -0.5;
   }
 
-  draw() {
+  draw(pos) {
+    // this.ctx.beginPath();
+    // this.ctx.rect(100, 100, 200, 500);
+    // this.ctx.fillStyle = "red";
+    // this.ctx.fill();
+    this.pos = pos;
+
     let y1 = this.pos[1];
     let y2 = y1 - 40;
     let y3 = y1 - 50;
@@ -27,28 +33,32 @@ class Evaporation {
     this.ctx.strokeStyle = "white";
     this.ctx.lineWidth = 1;
     this.ctx.stroke();
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.x4, y4 - 10);
+    this.ctx.lineTo(this.x4 + 5, y4);
+    this.ctx.lineTo(this.x4 - 5, y4);
+    this.ctx.fillStyle = "white";
+    this.ctx.stroke();
+    this.ctx.fill();
+
   }
 
   evaporate() {
     let opposite = 1;
-    if (this.x1 > this.origin[0] + 10) {
-      this.squiggleCount = -0.5;
+    if (this.x3 > this.origin[0] + 20) {
+      this.squiggleCount = 0.8;
     }
-    if (this.x1 < this.origin[0] - 10) {
-      this.squiggleCount = 0.5;
-    }
-    if (this.x2 > this.origin[0] + 10) {
-      opposite = 1;
-    }
-    if (this.x2 < this.origin[0] - 10) {
-      opposite = -1;
+    if (this.x3 < this.origin[0] - 20) {
+      this.squiggleCount = -0.8;
     }
 
-    this.x1 += this.squiggleCount;
-    this.x3 += this.squiggleCount;
 
-    this.x2 -= opposite;
-    this.x4 -= opposite;
+    // this.x1 -= this.squiggleCount;
+    this.x3 -= this.squiggleCount;
+
+    this.x2 += this.squiggleCount;
+    // this.x4 -= this.squiggleCount;
     
    }
   

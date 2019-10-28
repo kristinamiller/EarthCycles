@@ -17,7 +17,7 @@ class Ecosystem {
     this.backgroundHeight = 500;
     this.backgroundWidth = 500;
     this.raindrops = [];
-    this.evaporation = [];
+    this.evaporations = [];
     this.sun = new Sun(ctx);
     this.tree = new Tree(ctx);
     this.mushroom = new Mushroom(ctx);
@@ -55,19 +55,10 @@ class Ecosystem {
       this.makeRainListener();
     }
 
-
-    this.makeEvaporation();
-
-
     this.clouds.forEach((cloud) => {
-      // cloud.draw();
       // cloud.animate();
     })
-    //checks if its raining or not. if it's true, make rain.
-
-
-    // this.cloudListener();
-
+   
   }
 
 
@@ -102,11 +93,45 @@ class Ecosystem {
       raindrop.fall();
     })
 
+    this.makeEvaporation();
 
-    this.evaporation.forEach((squiggle) => {
-      squiggle.draw();
-      squiggle.evaporate();
-    })
+    //this was my attempt to make the evaporation move when the screen moves. 
+    let posY = (this.backgroundHeight * 0.78) + this.backgroundTop;
+    let positions = [
+      [window.innerWidth * 0.7, posY],
+      [window.innerWidth * 0.75, posY],
+      [window.innerWidth * 0.8, posY],
+      [window.innerWidth * 0.85, posY],
+      [window.innerWidth * 0.9, posY]
+    ]
+
+    for (let i = 0; i < this.evaporations.length; i++) {
+      this.evaporations[i].draw(positions[i]);
+      this.evaporations[i].evaporate();
+      
+    }
+  }
+
+  //evaporation
+
+  makeEvaporation() {
+    let posY = (this.backgroundHeight * 0.78) + this.backgroundTop;
+    let positions = [
+      [window.innerWidth * 0.7, posY],
+      [window.innerWidth * 0.75, posY],
+      [window.innerWidth * 0.8, posY],
+      [window.innerWidth * 0.85, posY],
+      [window.innerWidth * 0.9, posY]
+    ]
+
+    if (this.evaporations.length < 5) {
+      for (let i = 0; i < 5; i++) {
+        let squiggle = new Evaporation(this.ctx, positions[i]);
+        this.evaporations.push(squiggle);
+      }
+    }
+
+    
 
   }
   
@@ -179,18 +204,7 @@ class Ecosystem {
 
   }
 
-//evaporation
 
-  makeEvaporation() {
-
-
-    for (let i = 0; i < 3; i++) {
-      new Evaporation({ ctx: this.ctx })
-      this.evaporation.push()
-    }
-
-
-  }
 
 
 
@@ -201,7 +215,7 @@ class Ecosystem {
     let baseImage = new Image();
     baseImage.src = '../assets/images/ecosystem-background.png';
     baseImage.onload = function () {
-      console.log("test");
+      // console.log("test");
       context.drawImage(baseImage, -100, -100);
     }
   }
