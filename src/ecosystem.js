@@ -40,7 +40,23 @@ class Ecosystem {
 
   }
 
-  cloudListener() {
+  makeRainListener() {
+    let clouds = this.clouds;
+    let that = this;
+    document.addEventListener('click', function (event) {
+      // console.log("you clicked the page")
+      let x = event.pageX;
+      let y = event.pageY;
+      clouds.forEach((cloud) => {
+        let coordinates = cloud.rect;
+        if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+            that.raining = true;
+          }
+        })
+    })
+  }
+
+  stopRainListener() {
     let clouds = this.clouds;
     let that = this;
     document.addEventListener('click', function (event) {
@@ -48,28 +64,23 @@ class Ecosystem {
       let y = event.pageY;
       clouds.forEach((cloud) => {
         let coordinates = cloud.rect;
-        // console.log(cloud.rect)
-        if (!cloud.raining) {
-          if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-            if (!that.raining) {
-              that.raining = true;
-              cloud.raining = true;
-            }
-          }
+        if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+          that.raining = false;
         }
-
       })
     })
-    console.log(this.raining)
   }
-
-
 
   update() {
  
     if (this.raining) {
       this.makeRain();
+      this.stopRainListener();
+    } else {
+      this.makeRainListener();
     }
+
+
     this.makeEvaporation();
 
 
@@ -77,9 +88,10 @@ class Ecosystem {
       // cloud.draw();
       // cloud.animate();
     })
-    // this.cloud.animate();
     //checks if its raining or not. if it's true, make rain.
-    this.cloudListener();
+
+
+    // this.cloudListener();
 
   }
 
