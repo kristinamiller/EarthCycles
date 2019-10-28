@@ -1,5 +1,8 @@
+import Ecosystem from './ecosystem';
+
+
 class Tree {
-  constructor(ctx) {
+  constructor(ctx, backgroundHeight, backgroundWidth) {
     this.image = new Image();
     this.image.src = '../assets/images/deciduous-tree.png';
     this.ctx = ctx;
@@ -9,15 +12,19 @@ class Tree {
   }
 
 
-  draw() {
+  draw(backgroundWidth, backgroundHeight, backgroundTop) {
 
     let ratio = window.innerWidth * 0.00006;
     let height = this.image.height * ratio;
     let width = this.image.width * ratio;
-    // let height = 200;
-    // let width = 200;
+    let bottom = (backgroundHeight * 0.74) + backgroundTop;
+    let top = bottom - height;
 
-    this.ctx.drawImage(this.image, window.innerWidth * 0.4, window.innerHeight * 0.18, width, height);
+    this.ctx.drawImage(this.image, window.innerWidth * 0.4, top, width, height);
+
+    // this.ctx.beginPath();
+    // this.ctx.rect(window.innerWidth * 0.4, bottom, 200, 100)
+    // this.ctx.fill();
   }
 
   animate() {

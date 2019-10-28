@@ -12,7 +12,10 @@ class Ecosystem {
   constructor(ctx, canvasEl) {
     this.canvas = canvasEl;
     this.ctx = ctx;
-    this.rain = false;
+    this.screenDimensions = [];
+    this.backgroundTop = 0;
+    this.backgroundHeight = 500;
+    this.backgroundWidth = 500;
     this.raindrops = [];
     this.evaporation = [];
     this.sun = new Sun(ctx);
@@ -27,6 +30,7 @@ class Ecosystem {
     this.count = 0;
     this.ratio = 0.8;
     
+    
     this.elements = [
       this.sun,
       this.tree,
@@ -40,36 +44,7 @@ class Ecosystem {
 
   }
 
-  makeRainListener() {
-    let clouds = this.clouds;
-    let that = this;
-    document.addEventListener('click', function (event) {
-      // console.log("you clicked the page")
-      let x = event.pageX;
-      let y = event.pageY;
-      clouds.forEach((cloud) => {
-        let coordinates = cloud.rect;
-        if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-            that.raining = true;
-          }
-        })
-    })
-  }
 
-  stopRainListener() {
-    let clouds = this.clouds;
-    let that = this;
-    document.addEventListener('click', function (event) {
-      let x = event.pageX;
-      let y = event.pageY;
-      clouds.forEach((cloud) => {
-        let coordinates = cloud.rect;
-        if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-          that.raining = false;
-        }
-      })
-    })
-  }
 
   update() {
  
@@ -103,11 +78,11 @@ class Ecosystem {
     let baseImage = new Image();
     baseImage.src = '../assets/images/ecosystem-background.png';
     this.ratio = window.innerWidth / baseImage.width;
-    let height = baseImage.height * this.ratio;
-    let width = baseImage.width * this.ratio;
-
-    context.drawImage(baseImage, 0, window.innerHeight - height, width, height);
-
+    this.backgroundWidth = baseImage.width * this.ratio;
+    this.backgroundHeight = baseImage.height * this.ratio;
+    this.backgroundTop = window.innerHeight - this.backgroundHeight;
+    // console.log(baseImage.width);
+    context.drawImage(baseImage, 0, this.backgroundTop, this.backgroundWidth, this.backgroundHeight);
     this.sun.draw();
     
     this.addClouds(3);
@@ -115,7 +90,7 @@ class Ecosystem {
       cloud.draw();
       // cloud.animate();
     })
-    this.tree.draw();
+    this.tree.draw(this.backgroundWidth, this.backgroundHeight, this.backgroundTop);
     this.mushroom.draw();
     this.factory.draw();
     this.fish.draw();
@@ -136,6 +111,37 @@ class Ecosystem {
   }
   
   //rain ***********
+
+  makeRainListener() {
+    let clouds = this.clouds;
+    let that = this;
+    document.addEventListener('click', function (event) {
+      // console.log("you clicked the page")
+      let x = event.pageX;
+      let y = event.pageY;
+      clouds.forEach((cloud) => {
+        let coordinates = cloud.rect;
+        if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+          that.raining = true;
+        }
+      })
+    })
+  }
+
+  stopRainListener() {
+    let clouds = this.clouds;
+    let that = this;
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      clouds.forEach((cloud) => {
+        let coordinates = cloud.rect;
+        if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+          that.raining = false;
+        }
+      })
+    })
+  }
 
   addRaindrops() {
     let numRaindrops = window.innerWidth * 0.08;
