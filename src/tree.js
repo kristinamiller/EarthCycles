@@ -12,7 +12,7 @@ class Tree {
   }
 
 
-  draw(backgroundWidth, backgroundHeight, backgroundTop) {
+  draw(backgroundHeight, backgroundTop) {
 
     let ratio = window.innerWidth * 0.00006;
     let height = this.image.height * ratio;
@@ -22,9 +22,10 @@ class Tree {
 
     this.ctx.drawImage(this.image, window.innerWidth * 0.4, top, width, height);
 
-    // this.ctx.beginPath();
-    // this.ctx.rect(window.innerWidth * 0.4, bottom, 200, 100)
-    // this.ctx.fill();
+
+
+//figuring out where to draw evaporation station
+   
   }
 
   animate() {

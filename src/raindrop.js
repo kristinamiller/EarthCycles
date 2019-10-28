@@ -11,6 +11,8 @@ class Raindrop {
     this.ecosystem = options.ecosystem;
     this.raindropLength = this.generateLength();
     this.count = 0;
+    this.backgroundHeight = options.backgroundHeight;
+    this.backgroundTop = options.backgroundTop;
   }
 
   getRandomNum(min, max) {
@@ -63,9 +65,9 @@ class Raindrop {
   }
 
   fall() {
-    let ratios = [0.5, 0.6, 0.7, 0.71, 0.72, 0.73];
+    let ratios = [0.55, 0.6, 0.69, 0.7, 0.7, 0.7];
     let ratio = ratios[Math.floor(Math.random() * ratios.length)]
-    if (this.pos[1] > window.innerHeight * ratio) {
+    if (this.pos[1] > ((this.backgroundHeight * (ratio + 0.1)) + this.backgroundTop)) {
       this.ecosystem.removeRaindrop(this);
       this.splash([this.pos[0] + 2, this.pos[1] + this.raindropLength])
     }

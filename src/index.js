@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const ctx = canvasEl.getContext("2d");
 
+  
 
 
   const ecosystem = new Ecosystem(ctx, canvasEl);

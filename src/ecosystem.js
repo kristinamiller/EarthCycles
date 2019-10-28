@@ -17,7 +17,9 @@ class Ecosystem {
     this.backgroundHeight = 500;
     this.backgroundWidth = 500;
     this.raindrops = [];
+    this.raining = false;
     this.evaporations = [];
+    this.evaporating = false;
     this.sun = new Sun(ctx);
     this.tree = new Tree(ctx);
     this.mushroom = new Mushroom(ctx);
@@ -26,7 +28,6 @@ class Ecosystem {
     this.cow = new Cow(ctx);
     this.clouds = [];
     this.cloud = new Cloud(ctx);
-    this.raining = false;
     this.count = 0;
     this.ratio = 0.8;
     
@@ -47,7 +48,7 @@ class Ecosystem {
 
 
   update() {
- 
+
     if (this.raining) {
       this.makeRain();
       this.stopRainListener();
@@ -55,9 +56,19 @@ class Ecosystem {
       this.makeRainListener();
     }
 
+    if (this.evaporating) {
+      this.makeEvaporation();
+      this.stopEvaporationListener();
+    } else {
+      this.evaporations = [];
+      this.makeEvaporationListener();
+    }
+
     this.clouds.forEach((cloud) => {
       // cloud.animate();
     })
+
+   
    
   }
 
@@ -81,19 +92,18 @@ class Ecosystem {
       cloud.draw();
       // cloud.animate();
     })
-    this.tree.draw(this.backgroundWidth, this.backgroundHeight, this.backgroundTop);
-    this.mushroom.draw();
-    this.factory.draw();
-    this.fish.draw();
-    this.cow.draw();
+    this.tree.draw(this.backgroundHeight, this.backgroundTop);
+    this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
+    this.factory.draw(this.backgroundHeight, this.backgroundTop);
+    this.fish.draw(this.backgroundHeight, this.backgroundTop);
+    this.cow.draw(this.backgroundHeight, this.backgroundTop);
     // this.cow.animate();
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
       raindrop.fall();
     })
-
-    this.makeEvaporation();
+    
 
     //this was my attempt to make the evaporation move when the screen moves. 
     let posY = (this.backgroundHeight * 0.78) + this.backgroundTop;
@@ -110,9 +120,17 @@ class Ecosystem {
       this.evaporations[i].evaporate();
       
     }
+
+    this.ctx.font = '38px sans-serif';
+    this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
+
   }
 
-  //evaporation
+   //evaporation
+
+
+
+ 
 
   makeEvaporation() {
     let posY = (this.backgroundHeight * 0.78) + this.backgroundTop;
@@ -130,9 +148,41 @@ class Ecosystem {
         this.evaporations.push(squiggle);
       }
     }
+  }
 
-    
+  makeEvaporationListener() {
+    let rectStart = [window.innerWidth * 0.5,
+      (this.backgroundHeight * 0.74) + this.backgroundTop]
+    let rectEnd = [
+      rectStart[0] + (window.innerWidth * 0.5),
+      rectStart[1] + this.backgroundHeight * 0.1
+    ]
+    let that = this;
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      if (x > rectStart[0] && x < rectEnd[0] && y > rectStart[1] && y < rectEnd[1]) {
+        that.evaporating = true;
+      }
 
+    })
+  }
+
+  stopEvaporationListener() {
+    let rectStart = [window.innerWidth * 0.5,
+    (this.backgroundHeight * 0.74) + this.backgroundTop]
+    let rectEnd = [
+      rectStart[0] + (window.innerWidth * 0.5),
+      rectStart[1] + this.backgroundHeight * 0.1
+    ]
+    let that = this;
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      if (x > rectStart[0] && x < rectEnd[0] && y > rectStart[1] && y < rectEnd[1]) {
+        that.evaporating = false;
+      }
+    })
   }
   
   //rain ***********
@@ -141,7 +191,6 @@ class Ecosystem {
     let clouds = this.clouds;
     let that = this;
     document.addEventListener('click', function (event) {
-      // console.log("you clicked the page")
       let x = event.pageX;
       let y = event.pageY;
       clouds.forEach((cloud) => {
@@ -171,7 +220,10 @@ class Ecosystem {
   addRaindrops() {
     let numRaindrops = window.innerWidth * 0.08;
       for (let i = 0; i < numRaindrops; i++) {
-        let newRaindrop = new Raindrop({ ctx: this.ctx, ecosystem: this })
+        let newRaindrop = new Raindrop({ 
+          ctx: this.ctx, 
+          ecosystem: this, 
+          backgroundHeight: this.backgroundHeight, backgroundTop: this.backgroundTop })
         this.raindrops.push(newRaindrop);
       }
   }

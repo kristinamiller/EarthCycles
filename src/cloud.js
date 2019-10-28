@@ -62,9 +62,7 @@ class Cloud {
     // this.ctx.fillStyle = "green";
     this.ctx.fill();
 
-    // this.ctx.beginPath();
-    // this.ctx.rect(this.pos[0] - 110, this.pos[1] - 50, 200, 100)
-    // this.ctx.fill();
+
   }
 
   animate() {
