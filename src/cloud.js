@@ -5,10 +5,12 @@ class Cloud {
     this.height = 100;
     this.increment = 0.5;
     this.pos = pos;
-    
     this.color = "rgb(215, 232, 250)";
-    // this.color = "white";
     this.vel = 1;
+    this.raining = false;
+    if (this.pos) {
+      this.rect = [this.pos[0] - 110, this.pos[1] - 50, this.pos[0] + 90, this.pos[1] + 50]
+    }
   }
 
 
@@ -60,6 +62,9 @@ class Cloud {
     // this.ctx.fillStyle = "green";
     this.ctx.fill();
 
+    // this.ctx.beginPath();
+    // this.ctx.rect(this.pos[0] - 110, this.pos[1] - 50, 200, 100)
+    // this.ctx.fill();
   }
 
   animate() {

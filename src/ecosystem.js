@@ -23,6 +23,7 @@ class Ecosystem {
     this.cow = new Cow(ctx);
     this.clouds = [];
     this.cloud = new Cloud(ctx);
+    this.raining = false;
     this.count = 0;
     this.ratio = 0.8;
     
@@ -35,34 +36,51 @@ class Ecosystem {
       this.fish
     ];
 
+    this.makeRain = this.makeRain.bind(this)
+
   }
 
-  clickListener() {
-    this.canvas.addEventListener('click', function(event) {
-        let x = event.pageX;
-        let y = event.pageY;
-
-        this.elements.forEach((element) => {
-
-        })
-
+  cloudListener() {
+    let clouds = this.clouds;
+    let that = this;
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      clouds.forEach((cloud) => {
+        let coordinates = cloud.rect;
+        // console.log(cloud.rect)
+        if (!cloud.raining) {
+          if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+            if (!that.raining) {
+              that.raining = true;
+              cloud.raining = true;
+            }
+          }
+        }
 
       })
-
+    })
+    console.log(this.raining)
   }
 
 
 
   update() {
-    this.makeRain();
+ 
+    if (this.raining) {
+      this.makeRain();
+    }
     this.makeEvaporation();
+
 
     this.clouds.forEach((cloud) => {
       // cloud.draw();
-      cloud.animate();
+      // cloud.animate();
     })
     // this.cloud.animate();
     //checks if its raining or not. if it's true, make rain.
+    this.cloudListener();
+
   }
 
 
@@ -128,8 +146,8 @@ class Ecosystem {
     if (this.clouds.length < numClouds) {
       let positions = [
         [window.innerWidth * 0.25, window.innerHeight * 0.1],
-        [window.innerWidth * 0.45, window.innerHeight * 0.2],
-        [(window.innerWidth * 0.45) + 40, window.innerHeight * 0.2],
+        [window.innerWidth * 0.55, window.innerHeight * 0.2],
+        [(window.innerWidth * 0.55) + 40, window.innerHeight * 0.2],
         [window.innerWidth * 0.9, window.innerHeight * 0.15],
         [window.innerWidth * 0.73, window.innerHeight * 0.22],
       ]
