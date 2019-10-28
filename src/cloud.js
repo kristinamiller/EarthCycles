@@ -12,8 +12,6 @@ class Cloud {
   }
 
 
-
-
   draw() {
     this.ctx.beginPath();
     this.ctx.arc(this.pos[0] + 15, this.pos[1] + 35, 25, 0, 2 * Math.PI, false);
@@ -72,9 +70,9 @@ class Cloud {
       this.vel = 1;
     }
     this.pos[0] += this.vel;
-
-
   }
+
+  
 
   // pulse() {
   //   if (this.width > 230) {

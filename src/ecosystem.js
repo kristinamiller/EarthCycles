@@ -9,7 +9,8 @@ import Fish from './fish';
 import Cow from './cow';
 
 class Ecosystem {
-  constructor(ctx) {
+  constructor(ctx, canvasEl) {
+    this.canvas = canvasEl;
     this.ctx = ctx;
     this.rain = false;
     this.raindrops = [];
@@ -24,7 +25,33 @@ class Ecosystem {
     this.cloud = new Cloud(ctx);
     this.count = 0;
     this.ratio = 0.8;
+    
+    this.elements = [
+      this.sun,
+      this.tree,
+      this.mushroom,
+      this.factory, 
+      this.cow,
+      this.fish
+    ];
+
   }
+
+  clickListener() {
+    this.canvas.addEventListener('click', function(event) {
+        let x = event.pageX;
+        let y = event.pageY;
+
+        this.elements.forEach((element) => {
+
+        })
+
+
+      })
+
+  }
+
+
 
   update() {
     this.makeRain();
@@ -110,6 +137,7 @@ class Ecosystem {
       for (let i = 0; i < numClouds; i++) {
         let newCloud = new Cloud(this.ctx, positions[i])
         this.clouds.push(newCloud);
+        this.elements.push(newCloud);
       }
     } 
 

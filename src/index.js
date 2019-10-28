@@ -8,7 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
   canvasEl.width = window.innerWidth;
   canvasEl.height = window.innerHeight;
 
+
   const ctx = canvasEl.getContext("2d");
-  const ecosystem = new Ecosystem(ctx);
+
+
+
+  const ecosystem = new Ecosystem(ctx, canvasEl);
   new EcosystemView(ctx, ecosystem).start();
 });

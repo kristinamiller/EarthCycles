@@ -10,6 +10,7 @@ class Cow {
     this.increment = 0.5;
     this.vel = 0;
     this.bubblePos = [280, 350];
+    this.space = [];
   }
 
 
