@@ -95,6 +95,7 @@ class Ecosystem {
     this.tree.draw(this.backgroundHeight, this.backgroundTop);
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.factory.draw(this.backgroundHeight, this.backgroundTop);
+    this.factory.makeSmoke();
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
     // this.cow.animate();
@@ -122,15 +123,19 @@ class Ecosystem {
     }
 
     this.ctx.font = '38px sans-serif';
+    this.ctx.fillStyle = "white";
     this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
 
   }
 
+  // factory
+  makeFactorySmoke() {
+    // for (let i = 0; i < 4; i++) {
+      this.factory.makeSmokeBubble();
+    // }
+  }
+
    //evaporation
-
-
-
- 
 
   makeEvaporation() {
     let posY = (this.backgroundHeight * 0.78) + this.backgroundTop;
