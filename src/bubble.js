@@ -10,6 +10,7 @@ class Bubble {
     this.vel = options.vel;
     this.ctx = options.ctx;
     this.increment = options.increment;
+    this.boundary = options.boundary;
     this.animate = this.animate.bind(this);
     
     // this.ecosystem = options.ecosystem;
@@ -31,7 +32,7 @@ class Bubble {
     if (this.minRadius > this.maxRadius) {
       this.increment = 0;
     }
-    if (this.pos[0] < this.startPos[0] - 20 || this.pos[0] > this.startPos[0] + 20) {
+    if (this.pos[0] < this.startPos[0] - this.boundary || this.pos[0] > this.startPos[0] + this.boundary) {
       this.vel[0] = 0;
     }
 

@@ -105,7 +105,8 @@ class Factory {
         pos: startPositions[0],
         vel: vel,
         ctx: this.ctx,
-        increment: this.increment
+        increment: this.increment,
+        boundary: this.boundary
       })
       this.bubbles.push(bubble1);
       let bubble2 = new Bubble({
@@ -115,7 +116,8 @@ class Factory {
         pos: startPositions[1],
         vel: vel,
         ctx: this.ctx,
-        increment: this.increment
+        increment: this.increment,
+        boundary: this.boundary
       })
       this.bubbles.push(bubble2);
     }

@@ -22,15 +22,15 @@ class Cow {
         this.pos[0] + this.width * 0.9, 
         this.pos[1] + this.height * 0.6]
     }
-    this.increment = 0.2;
+    this.increment = 0.1;
     this.vel = [0, 0.5];
     this.bubblePos = [];
     this.bubbleEmerging = false;
     this.bubbles = [];
     this.color = "rgba(120, 79, 8, 0.8)";
     this.smokeRadius = 15;
-
-
+    this.boundary = 300;
+    this.bubbleCount = 0;
   }
 
 
@@ -53,7 +53,7 @@ class Cow {
 
   makeFart() {
     if (this.bubblePos.length === 0) {
-      this.bubblePos = [this.pos[0] + (this.width * 0.1), this.pos[1] + (this.height * 0.28)];
+      this.bubblePos = [this.pos[0] + (this.width * 0.08), this.pos[1] + (this.height * 0.3)];
     }
 
     let startPos = this.bubblePos.slice();
@@ -64,7 +64,7 @@ class Cow {
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw();
       this.bubbles[i].animate();
-      if (this.bubbles[i].pos[1] < startPos[1] - 20) {
+      if (this.bubbles[i].pos[1] < startPos[1] - 10) {
         this.bubbleEmerging = false;
       }
       if (this.bubbles[i].pos[1] < -40) {
@@ -72,7 +72,7 @@ class Cow {
       }
     }
     this.bubbles.forEach((bubble) => {
-      if (bubble.pos[1] > startPos[1] - 20) {
+      if (bubble.pos[1] > startPos[1] - 10) {
         this.bubbleEmerging = true;
       }
 
@@ -93,26 +93,28 @@ class Cow {
     let vel = velocities[Math.floor(Math.random() * velocities.length)]
     let minRadii = [10, 5, 8, 12, 14]
     let minRadius = minRadii[Math.floor(Math.random() * minRadii.length)]
-    let maxRadii = [10, 18, 12, 14]
+    let maxRadii = [18, 12, 14, 20, 25, 30]
     let maxRadius = maxRadii[Math.floor(Math.random() * maxRadii.length)]
     let startPositions = [
       this.bubblePos,
       [this.bubblePos[0] + 20, this.bubblePos[1] + 10]
     ]
     let startPos = startPositions[Math.floor(Math.random() * startPositions.length)]
-
-    if (!this.bubbleEmerging && this.bubbles.length < 40) {
-      let bubble1 = new Bubble({
-        color: this.color,
-        minRadius: 8,
-        maxRadius: maxRadius,
-        pos: startPositions[0],
-        vel: vel,
-        ctx: this.ctx,
-        increment: this.increment
-      })
-      this.bubbles.push(bubble1);
+      if (!this.bubbleEmerging && this.bubbleCount < 8) {
+        let bubble1 = new Bubble({
+          color: this.color,
+          minRadius: 8,
+          maxRadius: maxRadius,
+          pos: startPositions[0],
+          vel: vel,
+          ctx: this.ctx,
+          increment: this.increment,
+          boundary: this.boundary
+        })
+        this.bubbles.push(bubble1);
+        this.bubbleCount += 1;
     }
+
   }
 
 
