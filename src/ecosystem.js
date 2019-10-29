@@ -105,7 +105,7 @@ class Ecosystem {
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
-    // this.cow.animate();
+    this.cow.makeFart();
     this.factory.draw(this.backgroundHeight, this.backgroundTop);
     this.factory.makeSmoke();
     
