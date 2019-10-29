@@ -3,8 +3,10 @@ import Ecosystem from './ecosystem';
 class Bubble {
   constructor(options = {}) {
     this.color = options.color;
-    this.radius = options.radius;
+    this.minRadius = options.minRadius;
+    this.maxRadius = options.maxRadius;
     this.pos = options.pos.slice();
+    this.startPos = options.pos.slice();
     this.vel = options.vel;
     this.ctx = options.ctx;
     this.increment = options.increment;
@@ -20,18 +22,25 @@ class Bubble {
   draw() {
     // console.log(this.radius)
     this.ctx.beginPath();
-    this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI, false);
+    this.ctx.arc(this.pos[0], this.pos[1], this.minRadius, 0, 2 * Math.PI, false);
     this.ctx.fillStyle = this.color;
     this.ctx.fill();
   }
 
   animate() {
-    if (this.radius > 20) {
+    if (this.minRadius > this.maxRadius) {
       this.increment = 0;
     }
-    this.radius += this.increment;
+    if (this.pos[0] < this.startPos[0] - 20 || this.pos[0] > this.startPos[0] + 20) {
+      this.vel[0] = 0;
+    }
+
+    this.minRadius += this.increment;
     this.pos[0] -= this.vel[0];
-    this.pos[1] -= 1;
+    this.pos[1] -= this.vel[1];
+
+
+
   }
   
 

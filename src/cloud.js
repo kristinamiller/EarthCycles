@@ -73,6 +73,7 @@ class Cloud {
       this.vel = 1;
     }
     this.pos[0] += this.vel;
+    this.rect = [this.pos[0] - 110, this.pos[1] - 50, this.pos[0] + 90, this.pos[1] + 50]
   }
 
   

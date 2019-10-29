@@ -13,11 +13,15 @@ class Factory {
     this.smokeRadius = 15;
     this.width = 100;
     this.height = 100;
-    this.increment = 0.2;
-    this.vel = [0, 0.5];
+    this.increment = 0.4;
+    this.vel = [0, 1];
     this.smokePos = [];
     this.bubbleEmerging = false;
     this.bubbles = [];
+
+    if (this.pos) {
+      this.rect = [this.pos[0], this.pos[1], this.pos[0] + this.width, this.pos[1] + this.height]
+    }
   }
 
 
@@ -33,12 +37,17 @@ class Factory {
 
     this.ctx.drawImage(this.image, topX, topY, this.width, this.height);
     this.pos = [topX, topY];
+
+    // this.ctx.fillRect(this.pos[0], this.pos[1], this.width, this.height)
+
   }
 
   makeSmoke() {
+
+    // console.log("make smoke")
     
     if (this.smokePos.length === 0) {
-      this.smokePos = [this.pos[0] + (this.width * 0.61), this.pos[1] + (this.height * 0.25)];
+      this.smokePos = [this.pos[0] + (this.width * 0.61), this.pos[1] + (this.height * 0.28)];
     }
 
     let startPos = this.smokePos.slice();
@@ -54,31 +63,65 @@ class Factory {
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw();
       this.bubbles[i].animate(); 
-      if (this.bubbles[i].pos[1] < startPos[1] - 50) {
+      if (this.bubbles[i].pos[1] < startPos[1] - 10) {
         this.bubbleEmerging = false;
       } 
+      if (this.bubbles[i].pos[1] < -40) {
+        this.bubbles.splice(i, 1);
+      }
     }
     this.bubbles.forEach((bubble) => {
-      if (bubble.pos[1] > startPos[1] - 50) {
+      if (bubble.pos[1] > startPos[1] - 10) {
         this.bubbleEmerging = true;
-      }
+      } 
+     
     })
-
-
-    console.log(this.bubbles.length)
   }
 
   addBubble() {
-    if (!this.bubbleEmerging && this.bubbles.length < 10) {
-      let bubble = new Bubble({
+    let velocities = [
+      [0,0.8],
+      [-0.1, 0.8],
+      [0.1, 0.8],
+      [0.3,0.8],
+      [-0.3,0.8],
+      [0.4,0.8],
+      [-0.4,0.8],
+      [-0.2, 0.8],
+      [0.2, 0.8]
+    ] 
+    let vel = velocities[Math.floor(Math.random() * velocities.length)]
+    let minRadii = [10, 5, 8, 12, 14]
+    let minRadius = minRadii[Math.floor(Math.random() * minRadii.length)]
+    let maxRadii = [22, 25, 28, 30, 32]
+    let maxRadius = maxRadii[Math.floor(Math.random() * maxRadii.length)]
+    let startPositions = [
+      this.smokePos,
+      [this.smokePos[0] + 20, this.smokePos[1] + 10]
+    ]
+    let startPos = startPositions[Math.floor(Math.random() * startPositions.length)]
+
+    if (!this.bubbleEmerging && this.bubbles.length < 40) {
+      let bubble1 = new Bubble({
         color: this.color,
-        radius: this.smokeRadius,
-        pos: this.smokePos,
-        vel: this.vel,
+        minRadius: 8,
+        maxRadius: maxRadius,
+        pos: startPositions[0],
+        vel: vel,
         ctx: this.ctx,
         increment: this.increment
       })
-      this.bubbles.push(bubble);
+      this.bubbles.push(bubble1);
+      let bubble2 = new Bubble({
+        color: this.color,
+        minRadius: 5,
+        maxRadius: maxRadius,
+        pos: startPositions[1],
+        vel: vel,
+        ctx: this.ctx,
+        increment: this.increment
+      })
+      this.bubbles.push(bubble2);
     }
   }
 

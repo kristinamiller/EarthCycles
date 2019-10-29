@@ -11,17 +11,32 @@ class Cow {
     this.vel = 0;
     this.bubblePos = [280, 350];
     this.space = [];
+    this.pos = [0, 0];
+    if (this.pos) {
+      this.rect = [
+        this.pos[0] + this.width * 0.05, 
+        this.pos[1] + this.height * 0.2, 
+        this.pos[0] + this.width * 0.9, 
+        this.pos[1] + this.height * 0.6]
+    }
   }
 
 
-  draw() {
-    let ratio = window.innerWidth * 0.0003;
-    let height = this.image.height * ratio;
-    let width = this.image.width * ratio;
-    // let height = 200;
-    // let width = 200;
+  draw(backgroundHeight, backgroundTop) {
+    let ratio = window.innerWidth * 0.00035;
+    this.height = this.image.height * ratio;
+    this.width = this.image.width * ratio;
+    let bottom = (backgroundHeight * 0.82) + backgroundTop;
+    let topX = window.innerWidth * 0.25;
+    let topY = bottom - this.height;
 
-    this.ctx.drawImage(this.image, window.innerWidth * 0.2, window.innerHeight * 0.43, width, height);
+    this.ctx.drawImage(this.image, topX, topY, this.width, this.height);
+    this.pos = [topX, topY];
+
+    // this.ctx.fillStyle = "rgb(215, 232, 250, 0.4)";
+    // this.ctx.fillRect(this.pos[0] + this.width * 0.05, this.pos[1] + this.height * 0.2, this.width * 0.9, this.height * 0.6)
+
+
   }
 
   makeFart(numBubbles) {

@@ -24,6 +24,7 @@ class Ecosystem {
     this.tree = new Tree(ctx);
     this.mushroom = new Mushroom(ctx);
     this.factory = new Factory(ctx);
+    this.factorySmoking = false;
     this.fish = new Fish(ctx);
     this.cow = new Cow(ctx);
     this.clouds = [];
@@ -64,8 +65,16 @@ class Ecosystem {
       this.makeEvaporationListener();
     }
 
+    if (this.factorySmoking) {
+      this.factory.makeSmoke();
+      this.stopFactoryListener();
+    } else {
+      // this.factory.bubbles = [];
+      this.makeFactoryListener();
+    }
+
     this.clouds.forEach((cloud) => {
-      // cloud.animate();
+      cloud.animate();
     })
 
    
@@ -122,18 +131,46 @@ class Ecosystem {
       
     }
 
-    this.ctx.font = '38px sans-serif';
-    this.ctx.fillStyle = "white";
-    this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
+    // this.ctx.font = '38px sans-serif';
+    // this.ctx.fillStyle = "white";
+    // this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
 
   }
 
   // factory
-  makeFactorySmoke() {
-    // for (let i = 0; i < 4; i++) {
-      this.factory.makeSmokeBubble();
-    // }
+
+  makeFactoryListener() {
+ 
+    let that = this;
+    document.addEventListener('click', function (event) {
+      let coordinates =[
+        that.factory.pos[0],
+        that.factory.pos[1],
+        that.factory.pos[0] + that.factory.width,
+        that.factory.pos[1] + that.factory.height
+      ];
+      let x = event.pageX;
+      let y = event.pageY;
+      if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+        console.log("you clicked the factory")
+        that.factorySmoking = true;
+      }
+    })
+    // console.log(this.factorySmoking);
   }
+
+  stopFactoryListener() {
+
+    let that = this;
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+
+    })
+  }
+
+
+
 
    //evaporation
 
