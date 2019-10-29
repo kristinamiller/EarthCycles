@@ -103,11 +103,11 @@ class Ecosystem {
     })
     this.tree.draw(this.backgroundHeight, this.backgroundTop);
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
-    this.factory.draw(this.backgroundHeight, this.backgroundTop);
-    this.factory.makeSmoke();
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
     // this.cow.animate();
+    this.factory.draw(this.backgroundHeight, this.backgroundTop);
+    this.factory.makeSmoke();
     
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
