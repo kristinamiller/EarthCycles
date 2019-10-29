@@ -29,7 +29,7 @@ class Factory {
 
   draw(backgroundHeight, backgroundTop) {
 
-    let ratio = window.innerWidth * 0.00045;
+    let ratio = window.innerWidth * 0.0005;
     this.height = this.image.height * ratio;
     this.width = this.image.width * ratio;
     let bottom = (backgroundHeight * 0.75) + backgroundTop;
@@ -48,7 +48,7 @@ class Factory {
     // console.log("make smoke")
     
     if (this.smokePos.length === 0) {
-      this.smokePos = [this.pos[0] + (this.width * 0.61), this.pos[1] + (this.height * 0.28)];
+      this.smokePos = [this.pos[0] + (this.width * 0.6), this.pos[1] + (this.height * 0.25)];
     }
 
     let startPos = this.smokePos.slice();
@@ -59,7 +59,7 @@ class Factory {
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw();
       this.bubbles[i].animate(); 
-      if (this.bubbles[i].pos[1] < startPos[1] - 10) {
+      if (this.bubbles[i].pos[1] < startPos[1] - 3) {
         this.bubbleEmerging = false;
       } 
       if (this.bubbles[i].pos[1] < -40) {
@@ -67,7 +67,7 @@ class Factory {
       }
     }
     this.bubbles.forEach((bubble) => {
-      if (bubble.pos[1] > startPos[1] - 10) {
+      if (bubble.pos[1] > startPos[1] - 3) {
         this.bubbleEmerging = true;
       } 
      
@@ -93,11 +93,11 @@ class Factory {
     let maxRadius = maxRadii[Math.floor(Math.random() * maxRadii.length)]
     let startPositions = [
       this.smokePos,
-      [this.smokePos[0] + 20, this.smokePos[1] + 10]
+      [this.smokePos[0] + this.width * 0.08, this.smokePos[1] + this.height * 0.06]
     ]
     let startPos = startPositions[Math.floor(Math.random() * startPositions.length)]
 
-    if (!this.bubbleEmerging && this.bubbles.length < 40) {
+    if (!this.bubbleEmerging && this.bubbles.length < 50) {
       let bubble1 = new Bubble({
         color: this.color,
         minRadius: 8,

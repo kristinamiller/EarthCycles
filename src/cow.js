@@ -14,14 +14,8 @@ class Cow {
     this.vel = 0;
     this.bubblePos = [280, 350];
     this.space = [];
-    this.pos = [0, 0];
-    if (this.pos) {
-      this.rect = [
-        this.pos[0] + this.width * 0.05, 
-        this.pos[1] + this.height * 0.2, 
-        this.pos[0] + this.width * 0.9, 
-        this.pos[1] + this.height * 0.6]
-    }
+    this.pos = [];
+    this.rect = [];
     this.increment = 0.1;
     this.vel = [0, 0.5];
     this.bubblePos = [];
@@ -45,6 +39,12 @@ class Cow {
     this.ctx.drawImage(this.image, topX, topY, this.width, this.height);
     this.pos = [topX, topY];
 
+    this.rect = [
+      this.pos[0] + this.width * 0.05,
+      this.pos[1] + this.height * 0.2,
+      this.pos[0] + this.width * 0.9,
+      this.pos[1] + this.height * 0.6]
+
     // this.ctx.fillStyle = "rgb(215, 232, 250, 0.4)";
     // this.ctx.fillRect(this.pos[0] + this.width * 0.05, this.pos[1] + this.height * 0.2, this.width * 0.9, this.height * 0.6)
 
@@ -52,6 +52,7 @@ class Cow {
   }
 
   makeFart() {
+    console.log('cow is farting')
     if (this.bubblePos.length === 0) {
       this.bubblePos = [this.pos[0] + (this.width * 0.08), this.pos[1] + (this.height * 0.3)];
     }

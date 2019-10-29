@@ -105,7 +105,8 @@ class Ecosystem {
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
-    this.cow.makeFart();
+    this.makeCowListener();
+    // this.cow.makeFart();
     this.factory.draw(this.backgroundHeight, this.backgroundTop);
     // this.factory.makeSmoke();
     
@@ -134,6 +135,26 @@ class Ecosystem {
     // this.ctx.font = '38px sans-serif';
     // this.ctx.fillStyle = "white";
     // this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
+
+  }
+
+  // cow
+
+  makeCowListener() {
+    let that = this;
+    let coordinates;
+    if (this.cow.rect) {
+      coordinates = this.cow.rect;
+    }
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+        console.log("you clicked the cow")
+        that.cow.makeFart();
+      }
+    })
+
 
   }
 
