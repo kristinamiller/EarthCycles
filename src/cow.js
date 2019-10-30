@@ -21,10 +21,12 @@ class Cow {
     this.bubblePos = [];
     this.bubbleEmerging = false;
     this.bubbles = [];
-    this.color = "rgba(120, 79, 8, 0.8)";
+    this.color = [120, 79, 8];
+    this.colorChange = 0.003;
     this.smokeRadius = 15;
     this.boundary = 300;
     this.bubbleCount = 0;
+    this.maxBubbles = 8;
   }
 
 
@@ -52,7 +54,6 @@ class Cow {
   }
 
   makeFart() {
-    // console.log('cow is farting')
     if (this.bubblePos.length === 0) {
       this.bubblePos = [this.pos[0] + (this.width * 0.08), this.pos[1] + (this.height * 0.3)];
     }
@@ -65,18 +66,17 @@ class Cow {
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw();
       this.bubbles[i].animate();
-      if (this.bubbles[i].pos[1] < startPos[1] - 10) {
+      if (this.bubbles[i].pos[1] < startPos[1] - 5) {
         this.bubbleEmerging = false;
       }
-      if (this.bubbles[i].pos[1] < -40) {
+      if (this.bubbles[i].pos[1] < window.innerHeight * 0.3) {
         this.bubbles.splice(i, 1);
       }
     }
     this.bubbles.forEach((bubble) => {
-      if (bubble.pos[1] > startPos[1] - 10) {
+      if (bubble.pos[1] > startPos[1] - 5) {
         this.bubbleEmerging = true;
       }
-
     })
 
   }
@@ -101,9 +101,10 @@ class Cow {
       [this.bubblePos[0] + 20, this.bubblePos[1] + 10]
     ]
     let startPos = startPositions[Math.floor(Math.random() * startPositions.length)]
-      if (!this.bubbleEmerging && this.bubbleCount < 8) {
+      if (!this.bubbleEmerging && this.bubbleCount < this.maxBubbles) {
         let bubble1 = new Bubble({
           color: this.color,
+          colorChange: this.colorChange,
           minRadius: 8,
           maxRadius: maxRadius,
           pos: startPositions[0],

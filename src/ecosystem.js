@@ -27,6 +27,7 @@ class Ecosystem {
     this.factorySmoking = false;
     this.fish = new Fish(ctx);
     this.cow = new Cow(ctx);
+    this.cowFarting = false;
     this.clouds = [];
     this.cloud = new Cloud(ctx);
     this.count = 0;
@@ -135,6 +136,16 @@ class Ecosystem {
       this.makeFactoryListener();
     }
 
+    if (this.cowFarting) {
+      this.cow.makeFart();
+      
+      if (this.cow.bubbles.length == 0) {
+          this.cowFarting = false;
+          this.cow.bubbleEmerging = false;
+          this.cow.bubbleCount = 0;
+      }
+    } 
+
   }
 
   // cow
@@ -149,13 +160,11 @@ class Ecosystem {
       let x = event.pageX;
       let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-        console.log("you clicked the cow")
-        that.cow.makeFart();
+        that.cowFarting = true;
       }
     })
-
-
   }
+  
 
   // factory
 
