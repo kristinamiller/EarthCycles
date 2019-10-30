@@ -50,26 +50,7 @@ class Ecosystem {
 
 
   update() {
-    if (this.raining) {
-      this.makeRain();
-      this.stopRainListener();
-    } else {
-      this.makeRainListener();
-    }
-
-    if (this.evaporating) {
-      this.makeEvaporation();
-      this.stopEvaporationListener();
-    } else {
-      this.evaporations = [];
-      this.makeEvaporationListener();
-    }
-
-
-
-    this.clouds.forEach((cloud) => {
-      // cloud.animate();
-    })
+ 
    
   }
 
@@ -84,9 +65,28 @@ class Ecosystem {
     this.backgroundWidth = baseImage.width * this.ratio;
     this.backgroundHeight = baseImage.height * this.ratio;
     this.backgroundTop = window.innerHeight - this.backgroundHeight;
-    // console.log(baseImage.width);
     context.drawImage(baseImage, 0, this.backgroundTop, this.backgroundWidth, this.backgroundHeight);
     this.sun.draw();
+    
+    // this.addClouds(3);
+    // this.clouds.forEach((cloud) => {
+    //   cloud.draw();
+    //   // cloud.animate();
+    // })
+    // this.tree.draw(this.backgroundHeight, this.backgroundTop);
+  
+    
+
+    // this.ctx.font = '38px sans-serif';
+    // this.ctx.fillStyle = "white";
+    // this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
+
+    
+    // this.drawWaterCycle();
+    // this.drawCarbonCycle();
+  }
+
+  drawWaterCycle() {
     
     this.addClouds(3);
     this.clouds.forEach((cloud) => {
@@ -94,19 +94,11 @@ class Ecosystem {
       // cloud.animate();
     })
     this.tree.draw(this.backgroundHeight, this.backgroundTop);
-    this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
-    this.fish.draw(this.backgroundHeight, this.backgroundTop);
-    this.cow.draw(this.backgroundHeight, this.backgroundTop);
-    this.makeCowListener();
-    // this.cow.makeFart();
-    this.factory.draw(this.backgroundHeight, this.backgroundTop);
-    // this.factory.makeSmoke();
-    
+
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
       raindrop.fall();
     })
-    
 
     //this was my attempt to make the evaporation move when the screen moves. 
     let posY = (this.backgroundHeight * 0.78) + this.backgroundTop;
@@ -122,10 +114,33 @@ class Ecosystem {
       this.evaporations[i].draw(positions[i]);
       this.evaporations[i].evaporate();
     }
+    if (this.raining) {
+      this.makeRain();
+      this.stopRainListener();
+    } else {
+      this.makeRainListener();
+    }
 
-    // this.ctx.font = '38px sans-serif';
-    // this.ctx.fillStyle = "white";
-    // this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
+    if (this.evaporating) {
+      this.makeEvaporation();
+      this.stopEvaporationListener();
+    } else {
+      this.evaporations = [];
+      this.makeEvaporationListener();
+    }
+    this.clouds.forEach((cloud) => {
+      // cloud.animate();
+    })
+  }
+
+  drawCarbonCycle() {
+    this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
+    this.fish.draw(this.backgroundHeight, this.backgroundTop);
+    this.cow.draw(this.backgroundHeight, this.backgroundTop);
+    this.makeCowListener();
+    // this.cow.makeFart();
+    this.factory.draw(this.backgroundHeight, this.backgroundTop);
+    // this.factory.makeSmoke();
 
     if (this.factorySmoking) {
       this.factory.makeSmoke();
@@ -138,15 +153,16 @@ class Ecosystem {
 
     if (this.cowFarting) {
       this.cow.makeFart();
-      
+
       if (this.cow.bubbles.length == 0) {
-          this.cowFarting = false;
-          this.cow.bubbleEmerging = false;
-          this.cow.bubbleCount = 0;
+        this.cowFarting = false;
+        this.cow.bubbleEmerging = false;
+        this.cow.bubbleCount = 0;
       }
     } 
-
   }
+
+
 
   // cow
 

@@ -3,7 +3,9 @@ body {
   font-family: 'Montserrat', sans-serif;
   /* font-size: 18px;
   color: white; */
-  background: rgba(103, 169, 231, 0.804);
+  background: rgb(126, 187, 243);
+  /* background: linear-gradient(to right,  #EA424B, #673BC7); */
+  /* background: -webkit-linear-gradient(red, green); */
   /* background: rgba(38, 67, 90, 0.835); */
   /* background: -webkit-linear-gradient(rgb(85, 85, 112), #30303C);
   background: linear-gradient(rgb(93, 188, 231), rgb(25, 125, 207)); */

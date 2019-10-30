@@ -12,11 +12,28 @@ document.addEventListener("DOMContentLoaded", function () {
   const ctx = canvasEl.getContext("2d");
 
   const ecosystem = new Ecosystem(ctx, canvasEl);
-  new EcosystemView(ctx, ecosystem).start();
-  // let button = document.getElementById("water-cycle")
-  // button.addEventListener("click", (e) => {
-  //   //call ecosystem function. 
-  // })
+  const ecosystemView = new EcosystemView(ctx, ecosystem);
+  ecosystemView.start();
+
+  let waterCycleButton = document.getElementById("water-cycle")
+  waterCycleButton.addEventListener("click", (e) => {
+    if (!ecosystemView.waterCycle) {
+      ecosystemView.waterCycle = true;
+    } else {
+      ecosystemView.waterCycle = false;
+    }
+  })
+
+  
+  let carbonCycleButton = document.getElementById("carbon-cycle")
+  carbonCycleButton.addEventListener("click", (e) => {
+    if (!ecosystemView.carbonCycle) {
+      ecosystemView.carbonCycle = true;
+    } else {
+      ecosystemView.carbonCycle = false;
+    }
+  })
+  
 
 
 

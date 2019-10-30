@@ -5,6 +5,8 @@ class EcosystemView {
     this.ctx = ctx;
     this.ecosystem = new Ecosystem(ctx);
     this.animate = this.animate.bind(this);
+    this.waterCycle = false;
+    this.carbonCycle = false;
   }
 
   start() {
@@ -15,7 +17,8 @@ class EcosystemView {
     baseImage.src = '../assets/images/ecosystem-background.png';
     baseImage.onload = function () {
       context.drawImage(baseImage, 0, 0, window.innerWidth, 500);
-      ecosystem.draw();
+      // ecosystem.draw();
+      // ecosystem.drawWaterCycle();
       requestAnimationFrame(that.animate); 
     }
   }
@@ -26,6 +29,12 @@ class EcosystemView {
     requestAnimationFrame(this.animate);
     this.ecosystem.update();
     this.ecosystem.draw();
+    if (this.waterCycle) {
+      this.ecosystem.drawWaterCycle();
+    }
+    if (this.carbonCycle) {
+      this.ecosystem.drawCarbonCycle();
+    }
   }
 
 }

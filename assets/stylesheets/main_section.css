@@ -1,0 +1,29 @@
+#mycanvas {
+  position: absolute;
+  z-index: 0;
+}
+
+#main-div {
+  display: flex;
+  justify-content: flex-end;
+  /* background: rgba(231, 229, 229, 0.34); */
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+  padding: 10px;
+}
+
+#main-buttons {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
+  margin-right: 20px;
+}
+
+button {
+  color: white;
+  background: rgb(17, 17, 90);
+  padding: 10px 20px 10px 20px;
+  border-radius: 20px;
+  margin: 10px;
+}
