@@ -52,7 +52,7 @@ class Cow {
   }
 
   makeFart() {
-    console.log('cow is farting')
+    // console.log('cow is farting')
     if (this.bubblePos.length === 0) {
       this.bubblePos = [this.pos[0] + (this.width * 0.08), this.pos[1] + (this.height * 0.3)];
     }

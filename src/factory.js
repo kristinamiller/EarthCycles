@@ -44,8 +44,6 @@ class Factory {
   }
 
   makeSmoke() {
-
-    // console.log("make smoke")
     
     if (this.smokePos.length === 0) {
       this.smokePos = [this.pos[0] + (this.width * 0.6), this.pos[1] + (this.height * 0.25)];
