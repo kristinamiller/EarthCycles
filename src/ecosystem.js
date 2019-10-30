@@ -91,7 +91,7 @@ class Ecosystem {
     this.addClouds(3);
     this.clouds.forEach((cloud) => {
       cloud.draw();
-      // cloud.animate();
+      cloud.animate();
     })
     this.tree.draw(this.backgroundHeight, this.backgroundTop);
 

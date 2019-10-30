@@ -18,12 +18,29 @@
   flex-direction: column;
   align-content: flex-end;
   margin-right: 20px;
+  border-radius: 20px;
 }
 
 button {
-  color: white;
-  background: rgb(17, 17, 90);
   padding: 10px 20px 10px 20px;
-  border-radius: 20px;
-  margin: 10px;
+  text-align: center;
+}
+
+.unselected {
+  color: white;
+  background: rgb(24, 46, 145);
+}
+
+.selected {
+  color: rgb(24, 46, 145);
+  background: white;
+}
+
+#water-cycle {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+#carbon-cycle {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }

@@ -15,27 +15,60 @@ document.addEventListener("DOMContentLoaded", function () {
   const ecosystemView = new EcosystemView(ctx, ecosystem);
   ecosystemView.start();
 
-  let waterCycleButton = document.getElementById("water-cycle")
+  let waterCycleButton = document.getElementById("water-cycle");
+  let carbonCycleButton = document.getElementById("carbon-cycle");
+
   waterCycleButton.addEventListener("click", (e) => {
     if (!ecosystemView.waterCycle) {
       ecosystemView.waterCycle = true;
+      ecosystemView.carbonCycle = false;
+      reselect(waterCycleButton);
+      deselect(carbonCycleButton);
     } else {
       ecosystemView.waterCycle = false;
+      ecosystemView.carbonCycle = true;
+      deselect(waterCycleButton);
+      reselect(carbonCycleButton);
     }
   })
-
   
-  let carbonCycleButton = document.getElementById("carbon-cycle")
+
   carbonCycleButton.addEventListener("click", (e) => {
     if (!ecosystemView.carbonCycle) {
       ecosystemView.carbonCycle = true;
+      ecosystemView.waterCycle = false;
+      reselect(carbonCycleButton);
+      deselect(waterCycleButton);
     } else {
       ecosystemView.carbonCycle = false;
+      ecosystemView.waterCycle = true;
+      deselect(carbonCycleButton);
+      reselect(waterCycleButton);
     }
   })
   
-
-
+  
+  // carbonCycleButton.addEventListener("click", (e) => {
+  //   if (!ecosystemView.carbonCycle) {
+  //     ecosystemView.carbonCycle = true;
+  //     carbonCycleButton.classList.remove('unselected');
+  //     carbonCycleButton.classList.add('selected');
+  //   } else {
+  //     ecosystemView.carbonCycle = false;
+  //     carbonCycleButton.classList.remove('selected');
+  //     carbonCycleButton.classList.add('unselected');
+  //   }
+  // })
+  
 
 });
+
+function deselect(button) {
+  button.classList.remove('selected');
+  button.classList.add('unselected')
+}
+function reselect(button) {
+  button.classList.remove('unselected');
+  button.classList.add('selected')
+}
 
