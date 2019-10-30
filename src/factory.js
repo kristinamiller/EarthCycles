@@ -9,6 +9,7 @@ class Factory {
     this.width = this.image.width * this.ratio;
     this.height = this.image.height * this.ratio;
     this.pos = [0,0];
+    this.defaultColor = "rgb(50, 51, 61)";
     this.color = [50, 51, 61];
     this.colorChange = 0;
     this.smokeRadius = 15;
@@ -99,6 +100,8 @@ class Factory {
     if (!this.bubbleEmerging && this.bubbles.length < 50) {
       let bubble1 = new Bubble({
         color: this.color,
+        colorChange: this.colorChange,
+        defaultColor: this.defaultColor,
         minRadius: 8,
         maxRadius: maxRadius,
         pos: startPositions[0],
@@ -111,6 +114,7 @@ class Factory {
       let bubble2 = new Bubble({
         color: this.color,
         colorChange: this.colorChange,
+        defaultColor: this.defaultColor,
         minRadius: 5,
         maxRadius: maxRadius,
         pos: startPositions[1],

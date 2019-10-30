@@ -22,6 +22,7 @@ class Cow {
     this.bubbleEmerging = false;
     this.bubbles = [];
     this.color = [120, 79, 8];
+    this.defaultColor = "rgba(120, 79, 8)";
     this.colorChange = 0.003;
     this.smokeRadius = 15;
     this.boundary = 300;
@@ -105,6 +106,7 @@ class Cow {
         let bubble1 = new Bubble({
           color: this.color,
           colorChange: this.colorChange,
+          defaultColor: this.defaultColor,
           minRadius: 8,
           maxRadius: maxRadius,
           pos: startPositions[0],
