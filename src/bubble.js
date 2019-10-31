@@ -23,7 +23,8 @@ class Bubble {
     this.increment = options.increment;
     this.boundary = options.boundary;
     this.animate = this.animate.bind(this);
-    
+    this.text = options.text;
+    this.endPos = options.endPos;
     
     // this.ecosystem = options.ecosystem;
     // this.backgroundHeight = options.backgroundHeight;
@@ -38,9 +39,17 @@ class Bubble {
     this.ctx.fillStyle = this.defaultColor;
     this.ctx.fillStyle = `${this.finalColor}`;
     this.ctx.fill();
+
+    if (this.text) {
+      this.ctx.font = '16px sans-serif';
+      this.ctx.fillStyle = "white";
+      this.ctx.fillText(this.text, this.pos[0] - 16, this.pos[1] + 5)
+    }
+
   }
 
   animate() {
+   
     if (this.minRadius > this.maxRadius) {
       this.increment = 0;
     }
@@ -51,6 +60,7 @@ class Bubble {
     this.minRadius += this.increment;
     this.pos[0] -= this.vel[0];
     this.pos[1] -= this.vel[1];
+    // this.pos[1] -= 1;
 
     this.transparency -= this.colorChange;
     this.finalColor = `rgba(
@@ -59,12 +69,18 @@ class Bubble {
     ${this.color[2]},
     ${this.transparency}
     )`
-    
-    
-
   }
   
+  jiggle() {
+    // console.log("jiggle");
+    this.pos = [100, 100];
+    this.increment = 1;
+    this.pos[0] += this.increment;
+    
+  }
 
 }
+
+
 
 export default Bubble;

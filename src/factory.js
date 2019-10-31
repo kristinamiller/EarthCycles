@@ -21,6 +21,7 @@ class Factory {
     this.smokePos = [];
     this.bubbleEmerging = false;
     this.bubbles = [];
+    this.carbonBubbles = [];
     this.boundary = 20;
 
     if (this.pos) {
@@ -59,6 +60,7 @@ class Factory {
     for (let i = 0; i < this.bubbles.length; i++) {
       this.bubbles[i].draw();
       this.bubbles[i].animate(); 
+
       if (this.bubbles[i].pos[1] < startPos[1] - 3) {
         this.bubbleEmerging = false;
       } 
@@ -71,7 +73,14 @@ class Factory {
         this.bubbleEmerging = true;
       } 
     })
-    // this.addCarbon();
+
+    for (let i = 0; i < this.carbonBubbles.length; i++) {
+      this.carbonBubbles[i].draw();
+      this.carbonBubbles[i].animate(); 
+    }
+
+
+    // this.addCarbonBubbles();
   }
 
   addBubble() {
@@ -93,7 +102,6 @@ class Factory {
       this.smokePos,
       [this.smokePos[0] + this.width * 0.08, this.smokePos[1] + this.height * 0.06]
     ]
-    let startPos = startPositions[Math.floor(Math.random() * startPositions.length)]
 
     if (!this.bubbleEmerging && this.bubbles.length < 50) {
       let bubble1 = new Bubble({
@@ -122,16 +130,66 @@ class Factory {
         boundary: this.boundary
       })
       this.bubbles.push(bubble2);
+
+      if (this.bubbles.length == 2 || this.bubbles.length % 8 == 0) {
+        let bubble3 = new Bubble({
+          color: "magenta",
+          colorChange: this.colorChange,
+          defaultColor: "magenta",
+          minRadius: 20,
+          maxRadius: 20,
+          pos: [window.innerWidth * 0.1, window.innerHeight * 0.9],
+          endPos: [window.innerWidth * 0.4, window.innerHeight * 0.2],
+          vel: vel,
+          ctx: this.ctx,
+          increment: this.increment,
+          boundary: this.boundary,
+          text: 'CO2'
+      }) 
+        this.carbonBubbles.push(bubble3);
+      }
+    
+      
     }
   }
 
-  addCarbon() {
-    let molecules = new Carbon({
-      ctx: this.ctx,
-      startPos: this.smokePos,
-      numBubbles: 1
-    })
-  }
+  addCarbonBubbles() {
+    let startPositions = [
+      [window.innerWidth * 0.05, window.innerHeight * 0.89],
+      [window.innerWidth * 0.09, window.innerHeight * 0.95],
+      [window.innerWidth * 0.13, window.innerHeight * 0.88],
+      [window.innerWidth * 0.16, window.innerHeight * 0.94],
+      [window.innerWidth * 0.20, window.innerHeight * 0.88]
+    ]
+    let endPositions = [
+      [window.innerWidth * 0.05, window.innerHeight * 0.1],
+      [window.innerWidth * 0.09, window.innerHeight * 0.1],
+      [window.innerWidth * 0.13, window.innerHeight * 0.1],
+      [window.innerWidth * 0.16, window.innerHeight * 0.1],
+      [window.innerWidth * 0.20, window.innerHeight * 0.1]
+    ]
+
+    for (let i = 0; i < 5; i++) {
+      let bubble1 = new Bubble({
+        color: "magenta",
+        colorChange: this.colorChange,
+        defaultColor: "magenta",
+        minRadius: 25,
+        maxRadius: 30,
+        pos: startPositions[i],
+        vel: this.vel,
+        ctx: this.ctx,
+        increment: this.increment,
+        boundary: this.boundary,
+        text: 'CO2'
+      })
+        bubble1.draw();
+        bubble1.animate();
+      }
+      
+    }
+    
+  
 
 }
 

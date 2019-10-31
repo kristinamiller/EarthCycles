@@ -6,7 +6,7 @@ class EcosystemView {
     this.ecosystem = new Ecosystem(ctx);
     this.animate = this.animate.bind(this);
     this.waterCycle = false;
-    this.carbonCycle = false;
+    this.carbonCycle = true;
     this.currentCycle = "water";
   }
 
