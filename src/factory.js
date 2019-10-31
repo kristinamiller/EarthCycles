@@ -62,7 +62,7 @@ class Factory {
       this.bubbles[i].draw();
       this.bubbles[i].animate(); 
 
-      if (this.bubbles[i].pos[1] < startPos[1] - 3) {
+      if (this.bubbles[i].pos[1] < startPos[1] - 1) {
         this.bubbleEmerging = false;
       } 
       if (this.bubbles[i].pos[1] < -40) {
@@ -70,7 +70,7 @@ class Factory {
       }
     }
     this.bubbles.forEach((bubble) => {
-      if (bubble.pos[1] > startPos[1] - 3) {
+      if (bubble.pos[1] > startPos[1] - 1) {
         this.bubbleEmerging = true;
       } 
     })
@@ -113,7 +113,7 @@ class Factory {
     let endRatios = [0.16, 0.12, 0.14, 0.17, 0.23]
     let endRatio = endRatios[Math.floor(Math.random() * endRatios.length)]
 
-    if (!this.bubbleEmerging && this.bubbles.length < 50) {
+    if (!this.bubbleEmerging && this.bubbles.length < 70) {
       let bubble1 = new Bubble({
         color: this.color,
         colorChange: this.colorChange,

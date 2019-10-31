@@ -87,10 +87,7 @@ class Ecosystem {
   }
 
   drawWaterCycle() {
-
     this.removeText("smoke");
-
-
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
     this.makeCowListener();
@@ -144,6 +141,7 @@ class Ecosystem {
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.tree.draw(this.backgroundHeight, this.backgroundTop);
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
+    this.fish.animate();
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
     this.makeCowListener();
     this.factory.draw(this.backgroundHeight, this.backgroundTop);
@@ -169,7 +167,6 @@ class Ecosystem {
     } 
     this.drawCarbonBubbles();
     this.animateCarbonBubbles();
-    console.log(this.carbonMoving)
   }
 
   displayText(element) {

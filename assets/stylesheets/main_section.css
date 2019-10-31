@@ -94,3 +94,18 @@ button {
 .hidden {
   display: none;
 }
+
+.cow {
+  display: flex;
+  align-content: center;
+  text-align: center;
+  width: 200px;
+  border: 3px solid rgba(0, 0, 0, 0.589);
+  border-radius: 5px;
+  padding: 20px;
+  background: rgba(231, 229, 229, 0.54);
+  position: absolute;
+  left: 55%;
+  top: 100%;
+  /* animation: slider 2s; */
+}
