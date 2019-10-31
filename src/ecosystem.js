@@ -87,7 +87,13 @@ class Ecosystem {
   }
 
   drawWaterCycle() {
-    
+
+    this.removeText("smoke");
+
+
+    this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
+    this.cow.draw(this.backgroundHeight, this.backgroundTop);
+    this.makeCowListener();
     this.addClouds(3);
     this.clouds.forEach((cloud) => {
       cloud.draw();
@@ -135,6 +141,7 @@ class Ecosystem {
 
   drawCarbonCycle() {
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
+    this.tree.draw(this.backgroundHeight, this.backgroundTop);
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
     this.makeCowListener();
@@ -153,7 +160,6 @@ class Ecosystem {
 
     if (this.cowFarting) {
       this.cow.makeFart();
-
       if (this.cow.bubbles.length == 0) {
         this.cowFarting = false;
         this.cow.bubbleEmerging = false;

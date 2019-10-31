@@ -47,19 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   })
   
-  
-  // carbonCycleButton.addEventListener("click", (e) => {
-  //   if (!ecosystemView.carbonCycle) {
-  //     ecosystemView.carbonCycle = true;
-  //     carbonCycleButton.classList.remove('unselected');
-  //     carbonCycleButton.classList.add('selected');
-  //   } else {
-  //     ecosystemView.carbonCycle = false;
-  //     carbonCycleButton.classList.remove('selected');
-  //     carbonCycleButton.classList.add('unselected');
-  //   }
-  // })
-  
 
 });
 

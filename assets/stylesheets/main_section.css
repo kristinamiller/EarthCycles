@@ -78,16 +78,13 @@ button {
   background: rgba(231, 229, 229, 0.44);
   position: absolute;
   left: 25%;
-  animation: slider 1s;
+  animation: slider 2s;
 }
 
 @keyframes slider{
   0% {
-    left: 0%;
+    left: -20%;
   }
-  /* 70% {
-    left: 20%;
-  } */
   100% {
     left: 25%;
   }
