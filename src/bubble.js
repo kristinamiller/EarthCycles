@@ -27,7 +27,7 @@ class Bubble {
     this.text = options.text;
     this.endPosY = options.endPosY;
     this.type = options.type;
-    this.factory = options.factory;
+    this.ecosystem = options.ecosystem;
     
     // this.ecosystem = options.ecosystem;
     // this.backgroundHeight = options.backgroundHeight;
@@ -88,7 +88,7 @@ class Bubble {
       }
       if (this.pos[0] > (window.innerWidth * 0.9)) {
         this.vel = [0, 0];
-        this.factory.carbonMoving = false;
+        this.ecosystem.carbonMoving = false;
       }
       this.pos[0] -= this.vel[0];
       this.pos[1] -= this.vel[1];

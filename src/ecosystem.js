@@ -8,6 +8,7 @@ import Factory from './factory';
 import Fish from './fish';
 import Cow from './cow';
 import Carbon from './carbon';
+import Bubble from './bubble';
 
 class Ecosystem {
   constructor(ctx, canvasEl) {
@@ -33,7 +34,8 @@ class Ecosystem {
     this.cloud = new Cloud(ctx);
     this.count = 0;
     this.ratio = 0.8;
-    
+    this.carbonBubbles = [];
+    this.carbonMoving = true;
     
     this.elements = [
       this.sun,
@@ -138,6 +140,7 @@ class Ecosystem {
   }
 
   drawCarbonCycle() {
+
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.tree.draw(this.backgroundHeight, this.backgroundTop);
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
@@ -164,6 +167,8 @@ class Ecosystem {
         this.cow.bubbleCount = 0;
       }
     } 
+    this.drawCarbonBubbles();
+    this.animateCarbonBubbles();
   }
 
   displayText(element) {
@@ -180,6 +185,58 @@ class Ecosystem {
     text.classList.add('hidden');
   }
 
+  drawCarbonBubbles() {
+    let endRatios = [0.16, 0.12, 0.14, 0.17, 0.23]
+    let endRatio = endRatios[Math.floor(Math.random() * endRatios.length)]
+
+    let startPositions = [
+      [window.innerWidth * 0.05, window.innerHeight * 0.89],
+      [window.innerWidth * 0.09, window.innerHeight * 0.95],
+      [window.innerWidth * 0.13, window.innerHeight * 0.88],
+      [window.innerWidth * 0.16, window.innerHeight * 0.94],
+      [window.innerWidth * 0.20, window.innerHeight * 0.88]
+    ]
+    let endPositions = [
+      [window.innerWidth * 0.05, window.innerHeight * 0.1],
+      [window.innerWidth * 0.09, window.innerHeight * 0.1],
+      [window.innerWidth * 0.13, window.innerHeight * 0.1],
+      [window.innerWidth * 0.16, window.innerHeight * 0.1],
+      [window.innerWidth * 0.20, window.innerHeight * 0.1]
+    ]
+
+    for (let i = 0; this.carbonBubbles.length < 5; i++) {
+      let carbonBubble = new Bubble({
+        color: "magenta",
+        colorChange: 0,
+        defaultColor: "magenta",
+        minRadius: 20,
+        maxRadius: 25,
+        pos: startPositions[i],
+        endPosY: window.innerHeight * endRatio,
+        vel: [0.2, 1],
+        ctx: this.ctx,
+        increment: 0.08,
+        boundary: 20,
+        text: 'CO2',
+        type: "carbon",
+        ecosystem: this
+      })
+      this.carbonBubbles.push(carbonBubble);
+    }
+
+  }
+
+  animateCarbonBubbles() {
+    for (let i = 0; i < this.carbonBubbles.length; i++) {
+      if (this.carbonMoving) {
+        this.carbonBubbles[i].draw();
+        this.carbonBubbles[i].animate();
+      } else {
+        this.carbonBubbles[i].draw();
+        this.carbonBubbles[i].pulse();
+      }
+    }
+  }
 
   // cow
 
