@@ -87,8 +87,6 @@ class Factory {
       [0.2, 0.8]
     ] 
     let vel = velocities[Math.floor(Math.random() * velocities.length)]
-    let minRadii = [10, 5, 8, 12, 14]
-    let minRadius = minRadii[Math.floor(Math.random() * minRadii.length)]
     let maxRadii = [22, 25, 28, 30, 32]
     let maxRadius = maxRadii[Math.floor(Math.random() * maxRadii.length)]
     let startPositions = [

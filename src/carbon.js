@@ -13,11 +13,12 @@ class Carbon {
     this.defaultColor = this.color;
     this.colorChange = 0;
     this.increment = 1;
+    this.bubbleEmerging = false;
   }
 
 
 
-  addBubbles() {
+  addBubble() {
     if (this.bubbles.length < this.numBubbles) {
       let bubble1 = new Bubble({
         color: this.color,
