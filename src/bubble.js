@@ -86,7 +86,7 @@ class Bubble {
       if (this.pos[1] < this.endPosY) {
         this.vel = [-1, 0];
       }
-      if (this.pos[0] > (window.innerWidth * 0.9)) {
+      if (this.pos[0] > (window.innerWidth * 0.7)) {
         this.vel = [0, 0];
         this.ecosystem.carbonMoving = false;
       }
@@ -96,11 +96,11 @@ class Bubble {
   }
 
   pulse() {
-    if (this.minRadius < this.maxRadius) {
-      this.increment = 0.08;
+    if (this.minRadius < this.maxRadius - 5) {
+      this.increment = 0.05;
     } 
-    if (this.minRadius > this.maxRadius + 4) {
-      this.increment = -0.08;
+    if (this.minRadius > this.maxRadius) {
+      this.increment = -0.05;
     }
     this.minRadius += this.increment;
   }

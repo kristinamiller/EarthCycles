@@ -141,25 +141,25 @@ class Factory {
       })
       this.bubbles.push(bubble2);
 
-      if (this.bubbles.length == 2 || this.bubbles.length % 8 == 0) {
-        let carbonBubble = new Bubble({
-          color: "magenta",
-          colorChange: this.colorChange,
-          defaultColor: "magenta",
-          minRadius: 20,
-          maxRadius: 25,
-          pos: [window.innerWidth * 0.1, window.innerHeight * 0.9],
-          endPosY: window.innerHeight * endRatio,
-          vel: [0.2, 1],
-          ctx: this.ctx,
-          increment: 0.08,
-          boundary: maxRadius,
-          text: 'CO2',
-          type: "carbon",
-          factory: this
-      }) 
-        this.carbonBubbles.push(carbonBubble);
-      }
+      // if (this.bubbles.length == 2 || this.bubbles.length % 8 == 0) {
+      //   let carbonBubble = new Bubble({
+      //     color: "magenta",
+      //     colorChange: this.colorChange,
+      //     defaultColor: "magenta",
+      //     minRadius: 20,
+      //     maxRadius: 25,
+      //     pos: [window.innerWidth * 0.1, window.innerHeight * 0.9],
+      //     endPosY: window.innerHeight * endRatio,
+      //     vel: [0.2, 1],
+      //     ctx: this.ctx,
+      //     increment: 0.08,
+      //     boundary: maxRadius,
+      //     text: 'CO2',
+      //     type: "carbon",
+      //     factory: this
+      // }) 
+      //   this.carbonBubbles.push(carbonBubble);
+      // }
     
       
     }
