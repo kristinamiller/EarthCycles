@@ -1,4 +1,5 @@
 import Bubble from './bubble';
+import Carbon from './carbon';
 
 class Factory {
   constructor(ctx) {
@@ -46,8 +47,6 @@ class Factory {
   }
 
   makeSmoke() {
-    // this.displayText();
-    
     if (this.smokePos.length === 0) {
       this.smokePos = [this.pos[0] + (this.width * 0.6), this.pos[1] + (this.height * 0.25)];
     }
@@ -71,9 +70,8 @@ class Factory {
       if (bubble.pos[1] > startPos[1] - 3) {
         this.bubbleEmerging = true;
       } 
-     
     })
-
+    // this.addCarbon();
   }
 
   addBubble() {
@@ -129,11 +127,12 @@ class Factory {
     }
   }
 
-  displayText() {
-    // console.log("display text!!")
-    let text = document.getElementById("smoke-description");
-    text.classList.remove('hidden');
-    text.classList.add('smoke');
+  addCarbon() {
+    let molecules = new Carbon({
+      ctx: this.ctx,
+      startPos: this.smokePos,
+      numBubbles: 1
+    })
   }
 
 }

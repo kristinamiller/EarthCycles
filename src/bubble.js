@@ -33,7 +33,6 @@ class Bubble {
 
 
   draw() {
-    // console.log(this.finalColor)
     this.ctx.beginPath();
     this.ctx.arc(this.pos[0], this.pos[1], this.minRadius, 0, 2 * Math.PI, false);
     this.ctx.fillStyle = this.defaultColor;

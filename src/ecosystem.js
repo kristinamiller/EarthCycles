@@ -7,6 +7,7 @@ import Mushroom from './mushroom';
 import Factory from './factory';
 import Fish from './fish';
 import Cow from './cow';
+import Carbon from './carbon';
 
 class Ecosystem {
   constructor(ctx, canvasEl) {
@@ -81,9 +82,6 @@ class Ecosystem {
     // this.ctx.fillStyle = "white";
     // this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
 
-    
-    // this.drawWaterCycle();
-    // this.drawCarbonCycle();
   }
 
   drawWaterCycle() {
