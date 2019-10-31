@@ -22,6 +22,7 @@ class Factory {
     this.bubbleEmerging = false;
     this.bubbles = [];
     this.carbonBubbles = [];
+    this.carbonMoving = true;
     this.boundary = 20;
 
     if (this.pos) {
@@ -75,9 +76,16 @@ class Factory {
     })
 
     for (let i = 0; i < this.carbonBubbles.length; i++) {
-      this.carbonBubbles[i].draw();
-      this.carbonBubbles[i].animate(); 
+      if (this.carbonMoving) {
+        this.carbonBubbles[i].draw();
+        this.carbonBubbles[i].animate(); 
+      } else {
+        this.carbonBubbles[i].draw();
+        this.carbonBubbles[i].pulse();
+      }
     }
+
+    // if ( )
 
 
     // this.addCarbonBubbles();
@@ -102,6 +110,8 @@ class Factory {
       this.smokePos,
       [this.smokePos[0] + this.width * 0.08, this.smokePos[1] + this.height * 0.06]
     ]
+    let endRatios = [0.16, 0.12, 0.14, 0.17, 0.23]
+    let endRatio = endRatios[Math.floor(Math.random() * endRatios.length)]
 
     if (!this.bubbleEmerging && this.bubbles.length < 50) {
       let bubble1 = new Bubble({
@@ -132,21 +142,23 @@ class Factory {
       this.bubbles.push(bubble2);
 
       if (this.bubbles.length == 2 || this.bubbles.length % 8 == 0) {
-        let bubble3 = new Bubble({
+        let carbonBubble = new Bubble({
           color: "magenta",
           colorChange: this.colorChange,
           defaultColor: "magenta",
           minRadius: 20,
-          maxRadius: 20,
+          maxRadius: 25,
           pos: [window.innerWidth * 0.1, window.innerHeight * 0.9],
-          endPos: [window.innerWidth * 0.4, window.innerHeight * 0.2],
-          vel: vel,
+          endPosY: window.innerHeight * endRatio,
+          vel: [0.2, 1],
           ctx: this.ctx,
-          increment: this.increment,
-          boundary: this.boundary,
-          text: 'CO2'
+          increment: 0.08,
+          boundary: maxRadius,
+          text: 'CO2',
+          type: "carbon",
+          factory: this
       }) 
-        this.carbonBubbles.push(bubble3);
+        this.carbonBubbles.push(carbonBubble);
       }
     
       

@@ -75,9 +75,10 @@ button {
   border: 3px solid rgba(0, 0, 0, 0.589);
   border-radius: 5px;
   padding: 20px;
-  background: rgba(231, 229, 229, 0.44);
+  background: rgba(231, 229, 229, 0.54);
   position: absolute;
   left: 25%;
+  top: 100%;
   animation: slider 2s;
 }
 

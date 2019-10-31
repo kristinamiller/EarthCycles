@@ -1,4 +1,5 @@
 import Ecosystem from './ecosystem';
+import Factory from './factory';
 
 class Bubble {
   constructor(options = {}) {
@@ -24,7 +25,9 @@ class Bubble {
     this.boundary = options.boundary;
     this.animate = this.animate.bind(this);
     this.text = options.text;
-    this.endPos = options.endPos;
+    this.endPosY = options.endPosY;
+    this.type = options.type;
+    this.factory = options.factory;
     
     // this.ecosystem = options.ecosystem;
     // this.backgroundHeight = options.backgroundHeight;
@@ -49,34 +52,61 @@ class Bubble {
   }
 
   animate() {
-   
-    if (this.minRadius > this.maxRadius) {
-      this.increment = 0;
-    }
-    if (this.pos[0] < this.startPos[0] - this.boundary || this.pos[0] > this.startPos[0] + this.boundary) {
-      this.vel[0] = 0;
-    }
 
-    this.minRadius += this.increment;
-    this.pos[0] -= this.vel[0];
-    this.pos[1] -= this.vel[1];
-    // this.pos[1] -= 1;
+    if (this.type === "carbon") {
+      this.carbonStop();
+    } else {
+      if (this.minRadius > this.maxRadius) {
+        this.increment = 0;
+      }
+      if (this.pos[0] < this.startPos[0] - this.boundary || this.pos[0] > this.startPos[0] + this.boundary) {
+        this.vel[0] = 0;
+      }
 
-    this.transparency -= this.colorChange;
-    this.finalColor = `rgba(
+      this.minRadius += this.increment;
+      this.pos[0] -= this.vel[0];
+      this.pos[1] -= this.vel[1];
+      // this.pos[1] -= 1;
+
+      this.transparency -= this.colorChange;
+      this.finalColor = `rgba(
     ${this.color[0]},
     ${this.color[1]},
     ${this.color[2]},
     ${this.transparency}
     )`
+    }
+
   }
   
-  jiggle() {
-    // console.log("jiggle");
-    this.pos = [100, 100];
-    this.increment = 1;
-    this.pos[0] += this.increment;
+  carbonStop() {
+      if (this.pos[0] < this.startPos[0] - this.boundary || this.pos[0] > this.startPos[0] + this.boundary) {
+        this.vel[0] = -0.3;
+      }
+      if (this.pos[1] < this.endPosY) {
+        this.vel = [-1, 0];
+      }
+      if (this.pos[0] > (window.innerWidth * 0.9)) {
+        this.vel = [0, 0];
+        this.factory.carbonMoving = false;
+      }
+      this.pos[0] -= this.vel[0];
+      this.pos[1] -= this.vel[1];
     
+  }
+
+  pulse() {
+    if (this.minRadius < this.maxRadius) {
+      this.increment = 0.08;
+    } 
+    if (this.minRadius > this.maxRadius + 4) {
+      this.increment = -0.08;
+    }
+    this.minRadius += this.increment;
+  }
+
+  jiggle() {
+ 
   }
 
 }
