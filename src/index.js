@@ -65,10 +65,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function deselect(button) {
   button.classList.remove('selected');
-  button.classList.add('unselected')
+  button.classList.add('unselected');
 }
 function reselect(button) {
   button.classList.remove('unselected');
-  button.classList.add('selected')
+  button.classList.add('selected');
 }
 

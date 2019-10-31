@@ -138,17 +138,17 @@ class Ecosystem {
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
     this.makeCowListener();
-    // this.cow.makeFart();
     this.factory.draw(this.backgroundHeight, this.backgroundTop);
-    // this.factory.makeSmoke();
 
     if (this.factorySmoking) {
       this.factory.makeSmoke();
       this.stopFactoryListener();
+      this.displayText("smoke");
     } else {
       this.factory.bubbles = [];
       this.factory.bubbleEmerging = false;
       this.makeFactoryListener();
+      this.removeText("smoke");
     }
 
     if (this.cowFarting) {
@@ -162,6 +162,19 @@ class Ecosystem {
     } 
   }
 
+  displayText(element) {
+    let id = element + "-box"
+    let text = document.getElementById(id);
+    text.classList.remove('hidden');
+    text.classList.add(element);
+  }
+
+  removeText(element) {
+    let id = element + "-box"
+    let text = document.getElementById(id);
+    text.classList.remove(element);
+    text.classList.add('hidden');
+  }
 
 
   // cow
@@ -185,7 +198,6 @@ class Ecosystem {
   // factory
 
   makeFactoryListener() {
- 
     let that = this;
     document.addEventListener('click', function (event) {
       let coordinates =[

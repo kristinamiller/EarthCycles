@@ -5,7 +5,8 @@
 
 #main-div {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  /* justify-content: center; */
   /* background: rgba(231, 229, 229, 0.34); */
   position: absolute;
   z-index: 5;
@@ -13,12 +14,20 @@
   padding: 10px;
 }
 
+#button-div {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
 #main-buttons {
   display: flex;
   flex-direction: column;
   align-content: flex-end;
-  margin-right: 20px;
+  margin-top: 20px;
+  margin-right: 40px;
   border-radius: 20px;
+  /* width: 100%; */
 }
 
 button {
@@ -26,9 +35,16 @@ button {
   text-align: center;
 }
 
+
 .unselected {
   color: white;
   background: rgb(24, 46, 145);
+}
+
+.unselected:hover {
+  padding: 10px 20px 10px 20px;
+  text-align: center;
+  background: rgb(39, 72, 163);
 }
 
 .selected {
@@ -43,4 +59,40 @@ button {
 #carbon-cycle {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
+}
+
+#descriptions {
+  display: flex;
+  /* justify-content: center; */
+}
+
+.smoke {
+  display: flex;
+  align-content: center;
+  text-align: center;
+  width: 200px;
+  /* height: 200px; */
+  border: 3px solid rgba(0, 0, 0, 0.589);
+  border-radius: 5px;
+  padding: 20px;
+  background: rgba(231, 229, 229, 0.44);
+  position: absolute;
+  left: 25%;
+  animation: slider 1s;
+}
+
+@keyframes slider{
+  0% {
+    left: 0%;
+  }
+  /* 70% {
+    left: 20%;
+  } */
+  100% {
+    left: 25%;
+  }
+}
+
+.hidden {
+  display: none;
 }
