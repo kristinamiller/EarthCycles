@@ -35,8 +35,8 @@ class Factory {
   draw(backgroundHeight, backgroundTop) {
 
     let ratio = window.innerWidth * 0.0005;
-    this.height = this.image.height * ratio;
     this.width = this.image.width * ratio;
+    this.height = this.image.height * ratio;
     let bottom = (backgroundHeight * 0.75) + backgroundTop;
     let topX = window.innerWidth * 0.02;
     let topY = bottom - this.height;

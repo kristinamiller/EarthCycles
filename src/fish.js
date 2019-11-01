@@ -42,7 +42,6 @@ class Fish {
 
 
   animate() {
-    console.log("animate fish")
     if (this.pos[0] > window.innerWidth * 0.9) {
       this.vel = -this.vel;
       this.image.src = '../assets/images/cute-orange-fish.png';

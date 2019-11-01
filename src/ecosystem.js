@@ -71,14 +71,6 @@ class Ecosystem {
     context.drawImage(baseImage, 0, this.backgroundTop, this.backgroundWidth, this.backgroundHeight);
     this.sun.draw();
     
-    // this.addClouds(3);
-    // this.clouds.forEach((cloud) => {
-    //   cloud.draw();
-    //   // cloud.animate();
-    // })
-    // this.tree.draw(this.backgroundHeight, this.backgroundTop);
-  
-    
 
     // this.ctx.font = '38px sans-serif';
     // this.ctx.fillStyle = "white";
@@ -97,6 +89,9 @@ class Ecosystem {
       cloud.animate();
     })
     this.tree.draw(this.backgroundHeight, this.backgroundTop);
+
+    this.fish.draw(this.backgroundHeight, this.backgroundTop);
+    this.fish.animate();
 
     this.raindrops.forEach((raindrop) => {
       raindrop.draw();
@@ -131,9 +126,6 @@ class Ecosystem {
       this.evaporations = [];
       this.makeEvaporationListener();
     }
-    this.clouds.forEach((cloud) => {
-      // cloud.animate();
-    })
   }
 
   drawCarbonCycle() {
@@ -241,6 +233,23 @@ class Ecosystem {
       }
     }
   }
+
+  // tree 
+  makeTreeListener() {
+    let that = this;
+    let coordinates;
+    if (this.tree.rect) {
+      coordinates = this.tree.rect;
+    }
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+        console.log("you clicked the tree")
+      }
+    })
+  }
+
 
   // cow
 
