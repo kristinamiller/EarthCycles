@@ -24,6 +24,7 @@ class Ecosystem {
     this.evaporating = false;
     this.sun = new Sun(ctx);
     this.tree = new Tree(ctx);
+    this.photosynthesis = false;
     this.mushroom = new Mushroom(ctx);
     this.factory = new Factory(ctx);
     this.factorySmoking = false;
@@ -36,7 +37,7 @@ class Ecosystem {
     this.ratio = 0.8;
     this.carbonBubbles = [];
     this.carbonMoving = false;
-    this.carbonLocation = "ground";
+    this.carbonLocation = "sky";
     this.carbonFunnel = "factory";
     this.carbonDestination = "none";
     
@@ -129,12 +130,14 @@ class Ecosystem {
       this.evaporations = [];
       this.makeEvaporationListener();
     }
+    
+
   }
 
   drawCarbonCycle() {
 
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
-    this.tree.draw(this.backgroundHeight, this.backgroundTop);
+    this.tree.draw(this.backgroundHeight, this.backgroundTop, this);
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.fish.animate();
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
@@ -160,6 +163,13 @@ class Ecosystem {
         this.cow.bubbleCount = 0;
       }
     } 
+
+    if (this.photosynthesis) {
+      this.makePhotosynethesis();
+    } else {
+      this.makeTreeListener();
+    }
+
     this.createCarbonBubbles();
     this.animateCarbonBubbles();
   }
@@ -228,6 +238,7 @@ class Ecosystem {
         this.carbonBubbles[i].animateCarbon(this.carbonFunnel, this.carbonDestination);
         if (this.carbonBubbles[5].vel[0] == 0 && this.carbonBubbles[5].vel[1] == 0) {
           this.carbonMoving = false;
+          this.carbonLocation = this.carbonDestination;
         }
       } else {
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
@@ -240,19 +251,26 @@ class Ecosystem {
   // tree 
   makeTreeListener() {
     let that = this;
-    let coordinates;
-    if (this.tree.rect) {
-      coordinates = this.tree.rect;
-    }
+
     document.addEventListener('click', function (event) {
-      let x = event.pageX;
-      let y = event.pageY;
+      
+      let coordinates = [
+        that.tree.pos[0] + that.tree.width * 0.05,
+        that.tree.pos[1] + that.tree.height * 0.05,
+        that.tree.pos[0] + that.tree.width * 0.9,
+        that.tree.pos[1] + that.tree.height * 0.7];
+        let x = event.pageX;
+        let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-        console.log("you clicked the tree")
+        that.photosynthesis = true;
       }
     })
   }
 
+  makePhotosynethesis() {
+    this.tree.animate();
+    // this.sun.animate();
+  }
 
   // cow
 
@@ -270,6 +288,7 @@ class Ecosystem {
       }
     })
   }
+
   
 
   // factory

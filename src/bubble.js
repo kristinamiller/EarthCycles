@@ -98,6 +98,21 @@ class Bubble {
       ]
       this.pos = startPositions[this.bubbleID];
     }
+    if (!this.pos && startLocation == "sky") {
+      let yPos1 = (backgroundHeight * 0.88) + backgroundTop;
+      let yPos2 = (backgroundHeight * 0.93) + backgroundTop;
+      let xPos = window.innerWidth;
+
+      let startPositions = [
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2]
+      ]
+      this.pos = startPositions[this.bubbleID];
+    }
 
 
 
