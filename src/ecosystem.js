@@ -180,40 +180,39 @@ class Ecosystem {
     let endRatio = endRatios[Math.floor(Math.random() * endRatios.length)]
 
     let startPositions = [
-      [window.innerWidth * 0.05, window.innerHeight * 0.89],
+      [window.innerWidth * 0.05, window.innerHeight * 0.88],
       [window.innerWidth * 0.09, window.innerHeight * 0.95],
       [window.innerWidth * 0.13, window.innerHeight * 0.88],
-      [window.innerWidth * 0.16, window.innerHeight * 0.94],
-      [window.innerWidth * 0.20, window.innerHeight * 0.88],
-      [window.innerWidth * 0.23, window.innerHeight * 0.95]
+      [window.innerWidth * 0.17, window.innerHeight * 0.95],
+      [window.innerWidth * 0.21, window.innerHeight * 0.88],
+      [window.innerWidth * 0.25, window.innerHeight * 0.95]
     ]
     let endPositions = [100, 170, 110, 200, 90, 160];
 
     let velocities = [
       [0, 0.8],
-      [-0.1, 1],
-      [0.1, 1.2],
+      [-0.2, 1],
+      [0.2, 1.2],
       [0.3, 0.8],
-      [-0.3, 0.9],
-      [-0.2, 1.1],
-      [0.2, 1.3]
+      [-0.3, 0.9]
     ]
     let vel = velocities[Math.floor(Math.random() * velocities.length)]
 
     for (let i = 0; this.carbonBubbles.length < 6; i++) {
       let carbonBubble = new Bubble({
-        color: "magenta",
-        colorChange: 0,
-        defaultColor: "magenta",
+        color: [255, 0, 191],
+        colorChange: 0.008,
+        // defaultColor: "rgb(250, 88, 210)",
+        defaultColor: "rgb(255, 0, 191)",
         minRadius: 20,
         maxRadius: 25,
         pos: startPositions[i],
         endPosY: endPositions[i],
         vel: vel,
         ctx: this.ctx,
-        increment: 0.05,
+        increment: 0.3,
         boundary: 10,
-        text: 'CO2',
+        text: 'C',
         type: "carbon",
         ecosystem: this
       })
@@ -226,10 +225,10 @@ class Ecosystem {
     for (let i = 0; i < this.carbonBubbles.length; i++) {
       if (this.carbonMoving) {
         this.carbonBubbles[i].draw();
-        this.carbonBubbles[i].animate();
+        this.carbonBubbles[i].animateCarbon();
       } else {
         this.carbonBubbles[i].draw();
-        this.carbonBubbles[i].pulse();
+        this.carbonBubbles[i].jiggle();
       }
     }
   }
@@ -436,10 +435,6 @@ class Ecosystem {
   }
 
 
-
-
-
-
   
   makeBase() {
     let context = this.ctx;
@@ -450,11 +445,6 @@ class Ecosystem {
       context.drawImage(baseImage, -100, -100);
     }
   }
-
-  //handle click - when someone clicks cloud, updates 
-  // look up vanilla dom click event handler
-  // look up positioning of clicks on canvas
-  //
 
   getRandomNum(min, max) {
     Math.floor((Math.random() * (max - min) + min))

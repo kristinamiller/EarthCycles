@@ -25,8 +25,8 @@ class Tree {
     this.pos = [topX, topY];
 
     this.ctx.drawImage(this.image, topX, topY, this.width, this.height);
-    this.ctx.fillStyle = "rgb(215, 232, 250, 0.4)";
-    this.ctx.fillRect(this.pos[0] + this.width * 0.05, this.pos[1] + this.height * 0.05, this.width * 0.9, this.height * 0.7)
+    // this.ctx.fillStyle = "rgb(215, 232, 250, 0.4)";
+    // this.ctx.fillRect(this.pos[0] + this.width * 0.05, this.pos[1] + this.height * 0.05, this.width * 0.9, this.height * 0.7)
 
     this.rect = [
       this.pos[0] + this.width * 0.05,

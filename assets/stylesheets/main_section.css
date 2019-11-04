@@ -38,6 +38,7 @@ button {
 
 .unselected {
   color: white;
+ 
   background: rgb(24, 46, 145);
 }
 
@@ -108,4 +109,9 @@ button {
   left: 55%;
   top: 100%;
   /* animation: slider 2s; */
+  color: rgb(211, 35, 182);
+  color: rgb(255, 0, 191);
+  color: rgba(255, 0, 191, 0.548);
+  color: rgb(253, 84, 211);
+
 }
