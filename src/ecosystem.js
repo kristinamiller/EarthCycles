@@ -37,6 +37,7 @@ class Ecosystem {
     this.carbonBubbles = [];
     this.carbonMoving = false;
     this.carbonLocation = "ground";
+    this.carbonFunnel = "factory";
     this.carbonDestination = "none";
     
     this.elements = [
@@ -192,6 +193,9 @@ class Ecosystem {
     ]
     let vel = velocities[Math.floor(Math.random() * velocities.length)]
 
+    let speeds = [0.5, 1, 1.5, 2, 2.5]
+    let speed = speeds[Math.floor(Math.random() * speeds.length)]
+
     for (let i = 0; this.carbonBubbles.length < 6; i++) {
       let carbonBubble = new Bubble({
         color: [255, 0, 191],
@@ -200,9 +204,10 @@ class Ecosystem {
         defaultColor: "rgb(255, 0, 191)",
         minRadius: 20,
         maxRadius: 25,
-        pos: [0, 0],
+        // pos: [0, 0],
         endPosY: endPositions[i],
-        vel: vel,
+        vel: [0,1],
+        speed: speed,
         ctx: this.ctx,
         increment: 0.3,
         boundary: 10,
@@ -220,12 +225,16 @@ class Ecosystem {
     for (let i = 0; i < this.carbonBubbles.length; i++) {
       if (this.carbonMoving) {
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
-        this.carbonBubbles[i].animateCarbon();
+        this.carbonBubbles[i].animateCarbon(this.carbonFunnel, this.carbonDestination);
+        if (this.carbonBubbles[5].vel[0] == 0 && this.carbonBubbles[5].vel[1] == 0) {
+          this.carbonMoving = false;
+        }
       } else {
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].jiggle();
       }
     }
+    
   }
 
   // tree 
