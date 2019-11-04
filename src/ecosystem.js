@@ -36,6 +36,8 @@ class Ecosystem {
     this.ratio = 0.8;
     this.carbonBubbles = [];
     this.carbonMoving = false;
+    this.carbonLocation = "ground";
+    this.carbonDestination = "none";
     
     this.elements = [
       this.sun,
@@ -157,7 +159,7 @@ class Ecosystem {
         this.cow.bubbleCount = 0;
       }
     } 
-    this.drawCarbonBubbles();
+    this.createCarbonBubbles();
     this.animateCarbonBubbles();
   }
 
@@ -175,18 +177,10 @@ class Ecosystem {
     text.classList.add('hidden');
   }
 
-  drawCarbonBubbles() {
+  createCarbonBubbles() {
     let endRatios = [0.16, 0.12, 0.14, 0.17, 0.23]
     let endRatio = endRatios[Math.floor(Math.random() * endRatios.length)]
 
-    let startPositions = [
-      [window.innerWidth * 0.05, window.innerHeight * 0.88],
-      [window.innerWidth * 0.09, window.innerHeight * 0.95],
-      [window.innerWidth * 0.13, window.innerHeight * 0.88],
-      [window.innerWidth * 0.17, window.innerHeight * 0.95],
-      [window.innerWidth * 0.21, window.innerHeight * 0.88],
-      [window.innerWidth * 0.25, window.innerHeight * 0.95]
-    ]
     let endPositions = [100, 170, 110, 200, 90, 160];
 
     let velocities = [
@@ -206,7 +200,7 @@ class Ecosystem {
         defaultColor: "rgb(255, 0, 191)",
         minRadius: 20,
         maxRadius: 25,
-        pos: startPositions[i],
+        pos: [0, 0],
         endPosY: endPositions[i],
         vel: vel,
         ctx: this.ctx,
@@ -214,7 +208,8 @@ class Ecosystem {
         boundary: 10,
         text: 'C',
         type: "carbon",
-        ecosystem: this
+        ecosystem: this,
+        bubbleID: i
       })
       this.carbonBubbles.push(carbonBubble);
     }
@@ -224,10 +219,10 @@ class Ecosystem {
   animateCarbonBubbles() {
     for (let i = 0; i < this.carbonBubbles.length; i++) {
       if (this.carbonMoving) {
-        this.carbonBubbles[i].draw();
+        this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].animateCarbon();
       } else {
-        this.carbonBubbles[i].draw();
+        this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].jiggle();
       }
     }
@@ -284,6 +279,7 @@ class Ecosystem {
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
         that.factorySmoking = true;
         that.carbonMoving = true;
+        that.carbonDestination = "sky";
       }
     })
   }

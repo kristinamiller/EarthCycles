@@ -29,6 +29,7 @@ class Bubble {
     this.type = options.type;
     this.ecosystem = options.ecosystem;
     this.border = 10;
+    this.bubbleID = options.bubbleID;
     // this.ecosystem = options.ecosystem;
     // this.backgroundHeight = options.backgroundHeight;
     // this.backgroundTop = options.backgroundTop;
@@ -46,10 +47,8 @@ class Bubble {
     if (this.text) {
       this.ctx.font = '26px sans-serif';
       this.ctx.fillStyle = "white";
-      this.ctx.fillText(this.text, this.pos[0] - 10, this.pos[1] + 10)
-      
+      this.ctx.fillText(this.text, this.pos[0] - 10, this.pos[1] + 10)   
     }
-
   }
 
   animate() {
@@ -76,6 +75,41 @@ class Bubble {
 
   }
 
+  drawCarbon(startLocation) {
+    let backgroundHeight = this.ecosystem.backgroundHeight;
+    let backgroundTop = this.ecosystem.backgroundTop;
+
+    if (startLocation == "ground") {
+      let yPos1 = (backgroundHeight * 0.88) + backgroundTop;
+      let yPos2 = (backgroundHeight * 0.93) + backgroundTop;
+      let xPos = window.innerWidth;
+
+
+      let startPositions = [
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2]
+      ]
+      this.pos = startPositions[this.bubbleID];
+    }
+
+
+
+    this.ctx.beginPath();
+    this.ctx.arc(this.pos[0], this.pos[1], this.minRadius, 0, 2 * Math.PI, false);
+    this.ctx.fillStyle = this.defaultColor;
+    this.ctx.fillStyle = `${this.finalColor}`;
+    this.ctx.fill();
+
+    this.ctx.font = '26px sans-serif';
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText(this.text, this.pos[0] - 10, this.pos[1] + 10)
+    
+  }
+
   
   animateCarbon() {
       if (this.pos[0] < this.startPos[0] - this.boundary || this.pos[0] > this.startPos[0] + this.boundary) {
@@ -90,7 +124,6 @@ class Bubble {
       }
       this.pos[0] -= this.vel[0];
       this.pos[1] -= this.vel[1];
-    
   }
 
   pulse() {
@@ -114,18 +147,12 @@ class Bubble {
     // this.pos[0] += this.vel[0];
 
     if (this.transparency < 0.6) {
-      this.increment = -this.increment;
-      // this.finalColor = "rgba(255, 0, 191, 0.548)";
       this.colorChange = -this.colorChange
     } 
     
     if (this.transparency > 1) {
-      this.increment = -this.increment;
-      // this.finalColor = "rgb(250, 88, 210)";
       this.colorChange = -this.colorChange
     }
-    this.border += this.increment;
-    // console.log(this.border)
 
     this.transparency -= this.colorChange;
     this.finalColor = `rgba(
