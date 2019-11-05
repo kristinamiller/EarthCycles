@@ -40,7 +40,7 @@ class Ecosystem {
     this.carbonLocation = "ground";
     this.carbonFunnel = "factory";
     this.carbonDestination = "sky";
-    
+    this.userHasClicked = false;
     this.elements = [
       this.sun,
       this.tree,
@@ -73,7 +73,7 @@ class Ecosystem {
     this.backgroundHeight = baseImage.height * this.ratio;
     this.backgroundTop = window.innerHeight - this.backgroundHeight;
     context.drawImage(baseImage, 0, this.backgroundTop, this.backgroundWidth, this.backgroundHeight);
-    this.sun.draw();
+    
     
 
     // this.ctx.font = '38px sans-serif';
@@ -83,7 +83,8 @@ class Ecosystem {
   }
 
   drawWaterCycle() {
-    this.removeText("smoke");
+    this.displayText();
+    this.sun.draw(this.backgroundHeight, this.backgroundTop, this);
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
     this.makeCowListener();
@@ -135,7 +136,11 @@ class Ecosystem {
   }
 
   drawCarbonCycle() {
-
+    if (!this.userHasClicked) {
+      this.displayText("start-carbon");
+    }
+    
+    this.sun.draw(this.backgroundHeight, this.backgroundTop, this);
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.tree.draw(this.backgroundHeight, this.backgroundTop, this);
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
@@ -145,9 +150,11 @@ class Ecosystem {
     this.factory.draw(this.backgroundHeight, this.backgroundTop);
 
     if (this.photosynthesis) {
-      this.makePhotosynethesis();
+      this.tree.animate();
+      this.sun.animate();
     } else {
       this.makeTreeListener();
+      this.makeSunListener();
     }
 
     if (this.factorySmoking) {
@@ -181,12 +188,15 @@ class Ecosystem {
     if (removable) {
       removable.classList.add('hidden');
       removable.classList.remove('description');
+      this.userHasClicked = true;
     }
-
-    let id = element;
-    let text = document.getElementById(id);
-    text.classList.add('description');
-    text.classList.remove('hidden');
+    if (element) {
+      let id = element;
+      let text = document.getElementById(id);
+      text.classList.add('description');
+      text.classList.remove('hidden');
+    }
+    
   }
 
   removeText(element) {
@@ -248,6 +258,7 @@ class Ecosystem {
         if (i === 5 && this.carbonBubbles[5].vel[0] === 0 && this.carbonBubbles[5].vel[1] === 0) {
           this.carbonMoving = false;
           this.carbonLocation = this.carbonDestination;
+          this.photosynthesis = false;
         }
       } else {
         // console.log("carbon not moving")
@@ -277,6 +288,7 @@ class Ecosystem {
           that.carbonDestination = "ground";
           that.photosynthesis = true;
           that.displayText("tree");
+          that.sun.count = 0;
         }
         if (that.carbonLocation === "ground") {
           that.carbonFunnel = "factory";
@@ -305,6 +317,31 @@ class Ecosystem {
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
         that.photosynthesis = true;
         that.displayText("tree");
+        that.sun.count = 0;
+        if (that.carbonLocation === "sky") {
+          that.carbonFunnel = "tree";
+          that.carbonDestination = "ground";
+          that.carbonMoving = true;
+        }
+      }
+    })
+  }
+  makeSunListener() {
+    let that = this;
+
+    document.addEventListener('click', function (event) {
+      
+      let coordinates = [
+        that.sun.pos[0] + that.sun.width * 0.1,
+        that.sun.pos[1] + that.sun.height * 0.1,
+        that.sun.pos[0] + that.sun.width * 0.8,
+        that.sun.pos[1] + that.sun.height * 0.8];
+        let x = event.pageX;
+        let y = event.pageY;
+      if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+        that.photosynthesis = true;
+        that.displayText("tree");
+        that.sun.count = 0;
         if (that.carbonLocation === "sky") {
           that.carbonFunnel = "tree";
           that.carbonDestination = "ground";
@@ -314,11 +351,7 @@ class Ecosystem {
     })
   }
 
-  makePhotosynethesis() {
-    this.tree.animate();
-    // this.sun.animate();
-   
-  }
+  
 
   // cow
 

@@ -208,7 +208,11 @@ class Bubble {
         this.vel[0] = -1;
       }
       if (this.pos[1] > endPos[1]) {
-        this.vel = [0, 0];
+        if (this.pos[0] > endPos[0]) {
+          this.vel = [-1, 0]
+        } else {
+          this.vel = [0, 0];
+        }
       }
     }
 

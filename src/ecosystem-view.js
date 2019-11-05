@@ -35,6 +35,7 @@ class EcosystemView {
     }
     if (this.carbonCycle) {
       this.ecosystem.drawCarbonCycle();
+      
     }
   }
 
