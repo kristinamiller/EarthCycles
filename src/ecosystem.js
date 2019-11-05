@@ -51,7 +51,7 @@ class Ecosystem {
     ];
 
     this.makeRain = this.makeRain.bind(this)
-
+    this.cycle;
   }
 
 
@@ -74,8 +74,7 @@ class Ecosystem {
     this.backgroundTop = window.innerHeight - this.backgroundHeight;
     context.drawImage(baseImage, 0, this.backgroundTop, this.backgroundWidth, this.backgroundHeight);
     
-    
-
+  
     // this.ctx.font = '38px sans-serif';
     // this.ctx.fillStyle = "white";
     // this.ctx.fillText('Evaporation', positions[0][0] + 20, positions[0][1] + 30);
@@ -83,11 +82,12 @@ class Ecosystem {
   }
 
   drawWaterCycle() {
+    this.cycle = "water";
     this.displayText();
     this.sun.draw(this.backgroundHeight, this.backgroundTop, this);
+    this.makeSunListener();
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
     this.cow.draw(this.backgroundHeight, this.backgroundTop);
-    this.makeCowListener();
     this.addClouds(3);
     this.clouds.forEach((cloud) => {
       cloud.draw();
@@ -136,9 +136,11 @@ class Ecosystem {
   }
 
   drawCarbonCycle() {
+    this.cycle = "carbon";
     if (!this.userHasClicked) {
       this.displayText("start-carbon");
     }
+    // this.displayText("start-carbon");
     
     this.sun.draw(this.backgroundHeight, this.backgroundTop, this);
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
@@ -330,7 +332,6 @@ class Ecosystem {
     let that = this;
 
     document.addEventListener('click', function (event) {
-      
       let coordinates = [
         that.sun.pos[0] + that.sun.width * 0.1,
         that.sun.pos[1] + that.sun.height * 0.1,
@@ -339,14 +340,24 @@ class Ecosystem {
         let x = event.pageX;
         let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-        that.photosynthesis = true;
-        that.displayText("tree");
-        that.sun.count = 0;
-        if (that.carbonLocation === "sky") {
-          that.carbonFunnel = "tree";
-          that.carbonDestination = "ground";
-          that.carbonMoving = true;
+        if (that.cycle === "carbon") {
+          that.photosynthesis = true;
+          that.displayText("tree");
+          that.sun.count = 0;
+          if (that.carbonLocation === "sky") {
+            that.carbonFunnel = "tree";
+            that.carbonDestination = "ground";
+            that.carbonMoving = true;
+          }
+        } else {
+          if (that.evaporating === false) {
+            that.evaporating = true;
+          } else {
+            that.evaporating = false;
+          }
         }
+
+        
       }
     })
   }
@@ -453,7 +464,6 @@ class Ecosystem {
       if (x > rectStart[0] && x < rectEnd[0] && y > rectStart[1] && y < rectEnd[1]) {
         that.evaporating = true;
       }
-
     })
   }
 

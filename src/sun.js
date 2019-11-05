@@ -60,6 +60,9 @@ class Sun {
     if (this.width < (this.image.width * this.ratio)) {
       this.increment = -this.increment;
     }
+    if (this.count > 500) {
+      this.increment = 0;
+    } 
     if (this.count > 1000) {
       this.ecosystem.photosynthesis = false;
     }
