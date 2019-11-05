@@ -234,17 +234,15 @@ class Ecosystem {
   animateCarbonBubbles() {
     for (let i = 0; i < this.carbonBubbles.length; i++) {
       if (this.carbonMoving) {
-        console.log("carbon moving")
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].animateCarbon(this.carbonFunnel, this.carbonDestination);
-        if (this.carbonBubbles[5].vel[0] == 0 && this.carbonBubbles[5].vel[1] == 0) {
+        if (i === 5 && this.carbonBubbles[5].vel[0] === 0 && this.carbonBubbles[5].vel[1] === 0) {
           this.carbonMoving = false;
           this.carbonLocation = this.carbonDestination;
         }
       } else {
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].jiggle();
-        console.log("carbon not moving")
       }
     }
     
@@ -313,11 +311,14 @@ class Ecosystem {
       let x = event.pageX;
       let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-        that.factorySmoking = true;
-        if (that.carbonLocation === "ground") {
-          that.carbonDestination = "sky";
-          that.carbonFunnel = "factory";
-          that.carbonMoving = true;
+        console.log("inside make factory listener")
+        if (that.factorySmoking === false) {
+          that.factorySmoking = true;
+          if (that.carbonLocation === "ground") {
+            that.carbonFunnel = "factory";
+            that.carbonDestination = "sky";
+            that.carbonMoving = true;
+          }
         }
       }
     })
