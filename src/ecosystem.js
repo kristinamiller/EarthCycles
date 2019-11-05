@@ -562,7 +562,6 @@ class Ecosystem {
     let baseImage = new Image();
     baseImage.src = '../assets/images/ecosystem-background.png';
     baseImage.onload = function () {
-      // console.log("test");
       context.drawImage(baseImage, -100, -100);
     }
   }

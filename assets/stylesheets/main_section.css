@@ -155,3 +155,35 @@ button {
     right: 10%;
   }
 }
+
+.footer {
+  display: flex;
+  /* flex-direction: row; */
+  /* align-items: flex-end; */
+  justify-content: flex-start;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+  padding: 10px;
+}
+
+.footer-name {
+  color: white;
+  padding-right: 10px;
+}
+
+.github-logo {
+  width: 30px;
+}
+
+.footer-person {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* padding: 0px 10px 0px 10px; */
+}
+
+.footer-icons {
+  padding-top: 5px;
+}
