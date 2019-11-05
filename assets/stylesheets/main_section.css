@@ -62,12 +62,12 @@ button {
   border-bottom-left-radius: 20px;
 }
 
-#descriptions {
+#descriptions-container {
   display: flex;
   /* justify-content: center; */
 }
 
-.smoke {
+.description {
   display: flex;
   align-content: center;
   text-align: center;
@@ -78,40 +78,63 @@ button {
   padding: 20px;
   background: rgba(231, 229, 229, 0.54);
   position: absolute;
-  left: 25%;
-  top: 100%;
-  animation: slider 2s;
-}
-
-@keyframes slider{
-  0% {
-    left: -20%;
-  }
-  100% {
-    left: 25%;
-  }
+  
+  
 }
 
 .hidden {
   display: none;
 }
 
-.cow {
-  display: flex;
-  align-content: center;
-  text-align: center;
-  width: 200px;
-  border: 3px solid rgba(0, 0, 0, 0.589);
-  border-radius: 5px;
-  padding: 20px;
-  background: rgba(231, 229, 229, 0.54);
-  position: absolute;
-  left: 55%;
+#smoke {
+  left: 25%;
   top: 100%;
-  /* animation: slider 2s; */
-  color: rgb(211, 35, 182);
-  color: rgb(255, 0, 191);
-  color: rgba(255, 0, 191, 0.548);
-  color: rgb(253, 84, 211);
+  animation: sliderLeft 2s;
+}
 
+
+@keyframes sliderLeft{
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 25%;
+  }
+}
+
+
+#start {
+  left: 30%;
+  top: 80%;
+  animation: sliderMiddle 2s;
+}
+
+#cow {
+  left: 30%;
+  top: 80%;
+  animation: sliderMiddle 2s;
+}
+
+@keyframes sliderMiddle{
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 80%;
+  }
+}
+
+#tree {
+  right: 10%;
+  top: 200%;
+  animation: sliderRight 2s;
+}
+
+@keyframes sliderRight{
+  0% {
+    right: -30%;
+  }
+  100% {
+    right: 10%;
+  }
 }

@@ -144,10 +144,15 @@ class Ecosystem {
     this.makeCowListener();
     this.factory.draw(this.backgroundHeight, this.backgroundTop);
 
+    if (this.photosynthesis) {
+      this.makePhotosynethesis();
+    } else {
+      this.makeTreeListener();
+    }
+
     if (this.factorySmoking) {
       this.factory.makeSmoke();
       this.stopFactoryListener();
-      this.displayText("smoke");
     } else {
       this.factory.bubbles = [];
       this.factory.bubbleEmerging = false;
@@ -157,6 +162,7 @@ class Ecosystem {
 
     if (this.cowFarting) {
       this.cow.makeFart();
+      this.displayText("cow");
       if (this.cow.bubbles.length == 0) {
         this.cowFarting = false;
         this.cow.bubbleEmerging = false;
@@ -164,28 +170,30 @@ class Ecosystem {
       }
     } 
 
-    if (this.photosynthesis) {
-      this.makePhotosynethesis();
-    } else {
-      this.makeTreeListener();
-    }
+    
 
     this.createCarbonBubbles();
     this.animateCarbonBubbles();
   }
 
   displayText(element) {
-    let id = element + "-box"
+    let removable = document.querySelector(".description")
+    if (removable) {
+      removable.classList.add('hidden');
+      removable.classList.remove('description');
+    }
+
+    let id = element;
     let text = document.getElementById(id);
+    text.classList.add('description');
     text.classList.remove('hidden');
-    text.classList.add(element);
   }
 
   removeText(element) {
-    let id = element + "-box"
+    let id = element;
     let text = document.getElementById(id);
-    text.classList.remove(element);
     text.classList.add('hidden');
+    text.classList.remove('description');
   }
 
   createCarbonBubbles() {
@@ -248,7 +256,7 @@ class Ecosystem {
       }
       this.makeCarbonListener(this.carbonBubbles[i].pos)
     }
-    
+    // console.log(this.factorySmoking)
   }
 
   makeCarbonListener(pos) {
@@ -267,10 +275,14 @@ class Ecosystem {
         if (that.carbonLocation === "sky") {
           that.carbonFunnel = "tree";
           that.carbonDestination = "ground";
+          that.photosynthesis = true;
+          that.displayText("tree");
         }
         if (that.carbonLocation === "ground") {
           that.carbonFunnel = "factory";
           that.carbonDestination = "sky";
+          that.factorySmoking = true;
+          that.displayText("smoke");
         }
 
       }
@@ -292,6 +304,7 @@ class Ecosystem {
         let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
         that.photosynthesis = true;
+        that.displayText("tree");
         if (that.carbonLocation === "sky") {
           that.carbonFunnel = "tree";
           that.carbonDestination = "ground";
@@ -342,6 +355,7 @@ class Ecosystem {
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
         if (that.factorySmoking === false) {
           that.factorySmoking = true;
+          that.displayText("smoke");
           if (that.carbonLocation === "ground") {
             that.carbonFunnel = "factory";
             that.carbonDestination = "sky";
