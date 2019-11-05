@@ -99,17 +99,17 @@ class Bubble {
       this.pos = startPositions[this.bubbleID];
     }
     if (!this.pos && startLocation == "sky") {
-      let yPos1 = (backgroundHeight * 0.88) + backgroundTop;
-      let yPos2 = (backgroundHeight * 0.93) + backgroundTop;
+      let yPos1 = window.innerHeight * 0.3;
+      let yPos2 = window.innerHeight * 0.35;
       let xPos = window.innerWidth;
 
       let startPositions = [
-        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
-        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
-        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
-        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
-        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
-        [xPos * (0.05 + this.bubbleID * 0.04), yPos2]
+        [xPos * 0.55, yPos1],
+        [xPos * 0.6, yPos2],
+        [xPos * 0.65, yPos1],
+        [xPos * 0.7, yPos2],
+        [xPos * 0.75, yPos1],
+        [xPos * 0.8, yPos2]
       ]
       this.pos = startPositions[this.bubbleID];
     }
@@ -130,13 +130,40 @@ class Bubble {
 
   
   animateCarbon(funnelPoint, destination) {
-    let endPercentX;
-    let endPercentY = [];
+    let backgroundHeight = this.ecosystem.backgroundHeight;
+    let backgroundTop = this.ecosystem.backgroundTop;
+    let endPos;
+    let endPositions;
     if (destination === "sky") {
-      endPercentX = [0.55, 0.6, 0.65, 0.7, 0.75, 0.8];
-      endPercentY = [0.3, 0.35, 0.3, 0.35, 0.3, 0.35];
+      let yPos1 = window.innerHeight * 0.3;
+      let yPos2 = window.innerHeight * 0.35;
+      let xPos = window.innerWidth;
+
+      endPositions = [
+        [xPos * 0.55, yPos1],
+        [xPos * 0.6, yPos2],
+        [xPos * 0.65, yPos1],
+        [xPos * 0.7, yPos2],
+        [xPos * 0.75, yPos1],
+        [xPos * 0.8, yPos2]
+      ]
+    }
+    if (destination === "ground") {
+      let yPos1 = (backgroundHeight * 0.88) + backgroundTop;
+      let yPos2 = (backgroundHeight * 0.93) + backgroundTop;
+      let xPos = window.innerWidth;
+
+      endPositions = [
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos1],
+        [xPos * (0.05 + this.bubbleID * 0.04), yPos2]
+      ]
     }
 
+    endPos = endPositions[this.bubbleID];
     let velocities = [
       [0, 4],
       [-0.2, 0.1],
@@ -146,26 +173,40 @@ class Bubble {
     ]
     let vel = velocities[Math.floor(Math.random() * velocities.length)]
 
-    
 
     if (funnelPoint === "factory") {
       this.funnelPos = this.ecosystem.factory.smokePos;
+      this.vel = vel;
+      if (this.pos[0] < this.funnelPos[0] - 1) {
+        this.vel[0] = 0.3;
+      }
+      if (this.pos[0] > this.funnelPos[0] + 1) {
+        this.vel[0] = -0.3;
+      }
+      if (this.pos[1] < endPos[1]) {
+        this.vel = [2, 0];
+      }
+      if (this.pos[0] > endPos[0]) {
+        this.vel = [0, 0];
+      }
     }
-    this.vel = vel;
-    if (this.pos[0] < this.funnelPos[0] - 1) { 
-      this.vel[0] = 0.3;
+    if (funnelPoint === "tree") {
+      this.funnelPos = this.ecosystem.tree.pos;
+      this.vel = [-2, -1];
+      if (this.pos[0] > this.funnelPos[0] + 100) {
+        this.vel[0] = -2;
+      }
+      if (this.pos[0] < this.funnelPos[0] + 100) {
+        this.vel[0] = -1;
+      }
+      if (this.pos[1] > endPos[1]) {
+        this.vel = [0, 0];
+      }
     }
-    if (this.pos[0] > this.funnelPos[0] + 1) {
-      this.vel[0] = -0.3;
-    }
-    if (this.pos[1] < window.innerHeight * endPercentY[this.bubbleID]) {
-      this.vel = [2, 0];
-    }
-    if (this.pos[0] > window.innerWidth * endPercentX[this.bubbleID]) {
-      this.vel = [0,0];
-    }
+
     this.pos[0] += this.vel[0];
     this.pos[1] -= this.vel[1];
+    console.log(this.vel)
   }
 
   pulse() {

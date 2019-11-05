@@ -38,7 +38,7 @@ class Ecosystem {
     this.carbonBubbles = [];
     this.carbonMoving = false;
     this.carbonLocation = "sky";
-    this.carbonFunnel = "factory";
+    this.carbonFunnel;
     this.carbonDestination = "none";
     
     this.elements = [
@@ -234,6 +234,7 @@ class Ecosystem {
   animateCarbonBubbles() {
     for (let i = 0; i < this.carbonBubbles.length; i++) {
       if (this.carbonMoving) {
+        console.log("carbon moving")
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].animateCarbon(this.carbonFunnel, this.carbonDestination);
         if (this.carbonBubbles[5].vel[0] == 0 && this.carbonBubbles[5].vel[1] == 0) {
@@ -243,6 +244,7 @@ class Ecosystem {
       } else {
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].jiggle();
+        console.log("carbon not moving")
       }
     }
     
@@ -263,6 +265,11 @@ class Ecosystem {
         let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
         that.photosynthesis = true;
+        if (that.carbonLocation === "sky") {
+          that.carbonFunnel = "tree";
+          that.carbonDestination = "ground";
+          that.carbonMoving = true;
+        }
       }
     })
   }
@@ -270,6 +277,7 @@ class Ecosystem {
   makePhotosynethesis() {
     this.tree.animate();
     // this.sun.animate();
+   
   }
 
   // cow
@@ -306,8 +314,11 @@ class Ecosystem {
       let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
         that.factorySmoking = true;
-        that.carbonMoving = true;
-        that.carbonDestination = "sky";
+        if (that.carbonLocation === "ground") {
+          that.carbonDestination = "sky";
+          that.carbonFunnel = "factory";
+          that.carbonMoving = true;
+        }
       }
     })
   }
