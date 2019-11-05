@@ -126,6 +126,14 @@ class Bubble {
     this.ctx.fillStyle = "white";
     this.ctx.fillText(this.text, this.pos[0] - 10, this.pos[1] + 10)
     
+    // this.ctx.fillStyle = "rgb(215, 232, 250, 0.4)";
+    // this.ctx.fillRect(
+    //   this.pos[0] - 20, 
+    //   this.pos[1] - 20,
+    //   40,
+    //   40
+    //   )
+    
   }
 
   

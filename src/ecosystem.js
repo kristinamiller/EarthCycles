@@ -37,9 +37,9 @@ class Ecosystem {
     this.ratio = 0.8;
     this.carbonBubbles = [];
     this.carbonMoving = false;
-    this.carbonLocation = "sky";
-    this.carbonFunnel;
-    this.carbonDestination = "none";
+    this.carbonLocation = "ground";
+    this.carbonFunnel = "factory";
+    this.carbonDestination = "sky";
     
     this.elements = [
       this.sun,
@@ -92,7 +92,7 @@ class Ecosystem {
       cloud.draw();
       cloud.animate();
     })
-    this.tree.draw(this.backgroundHeight, this.backgroundTop);
+    this.tree.draw(this.backgroundHeight, this.backgroundTop, this);
 
     this.fish.draw(this.backgroundHeight, this.backgroundTop);
     this.fish.animate();
@@ -234,6 +234,7 @@ class Ecosystem {
   animateCarbonBubbles() {
     for (let i = 0; i < this.carbonBubbles.length; i++) {
       if (this.carbonMoving) {
+        // console.log("carbon moving")
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].animateCarbon(this.carbonFunnel, this.carbonDestination);
         if (i === 5 && this.carbonBubbles[5].vel[0] === 0 && this.carbonBubbles[5].vel[1] === 0) {
@@ -241,11 +242,39 @@ class Ecosystem {
           this.carbonLocation = this.carbonDestination;
         }
       } else {
+        // console.log("carbon not moving")
         this.carbonBubbles[i].drawCarbon(this.carbonLocation);
         this.carbonBubbles[i].jiggle();
       }
+      this.makeCarbonListener(this.carbonBubbles[i].pos)
     }
     
+  }
+
+  makeCarbonListener(pos) {
+    let that = this;
+    let coordinates = [
+      pos[0] - 20,
+      pos[1] - 20,
+      pos[0] + 20,
+      pos[1] + 20
+    ]
+    document.addEventListener('click', function (event) {
+      let x = event.pageX;
+      let y = event.pageY;
+      if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+        that.carbonMoving = true;
+        if (that.carbonLocation === "sky") {
+          that.carbonFunnel = "tree";
+          that.carbonDestination = "ground";
+        }
+        if (that.carbonLocation === "ground") {
+          that.carbonFunnel = "factory";
+          that.carbonDestination = "sky";
+        }
+
+      }
+    })
   }
 
   // tree 
@@ -311,7 +340,6 @@ class Ecosystem {
       let x = event.pageX;
       let y = event.pageY;
       if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-        console.log("inside make factory listener")
         if (that.factorySmoking === false) {
           that.factorySmoking = true;
           if (that.carbonLocation === "ground") {
