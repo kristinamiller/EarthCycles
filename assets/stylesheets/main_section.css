@@ -72,7 +72,7 @@ button {
   display: flex;
   align-content: center;
   text-align: center;
-  width: 200px;
+  width: 250px;
   /* height: 200px; */
   border: 3px solid rgba(0, 0, 0, 0.589);
   border-radius: 5px;
@@ -141,6 +141,11 @@ button {
   }
 }
 
+.learn-more {
+  text-decoration: underline;
+  color: rgb(2, 2, 172);
+}
+
 #tree {
   right: 10%;
   top: 40%;
@@ -163,7 +168,7 @@ button {
   justify-content: flex-start;
   top: 0;
   position: fixed;
-  width: 100vw;
+  width: 20%;
   padding: 10px;
 }
 
