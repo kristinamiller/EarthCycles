@@ -173,13 +173,7 @@ class Factory {
       [window.innerWidth * 0.16, window.innerHeight * 0.94],
       [window.innerWidth * 0.20, window.innerHeight * 0.88]
     ]
-    let endPositions = [
-      [window.innerWidth * 0.05, window.innerHeight * 0.1],
-      [window.innerWidth * 0.09, window.innerHeight * 0.1],
-      [window.innerWidth * 0.13, window.innerHeight * 0.1],
-      [window.innerWidth * 0.16, window.innerHeight * 0.1],
-      [window.innerWidth * 0.20, window.innerHeight * 0.1]
-    ]
+
 
     for (let i = 0; i < 5; i++) {
       let bubble1 = new Bubble({

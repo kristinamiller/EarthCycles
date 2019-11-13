@@ -140,7 +140,6 @@ class Ecosystem {
     if (!this.userHasClicked) {
       this.displayText("start-carbon");
     }
-    // this.displayText("start-carbon");
     
     this.sun.draw(this.backgroundHeight, this.backgroundTop, this);
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
