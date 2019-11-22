@@ -18,8 +18,6 @@ class EcosystemView {
     baseImage.src = '../assets/images/ecosystem-background.png';
     baseImage.onload = function () {
       context.drawImage(baseImage, 0, 0, window.innerWidth, 500);
-      // ecosystem.draw();
-      // ecosystem.drawWaterCycle();
       requestAnimationFrame(that.animate); 
     }
   }

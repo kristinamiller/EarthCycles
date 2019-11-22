@@ -2,7 +2,7 @@ import Ecosystem from './ecosystem';
 
 
 class Tree {
-  constructor(ctx, backgroundHeight, backgroundWidth) {
+  constructor(ctx) {
     this.image = new Image();
     this.image.src = '../assets/images/deciduous-tree.png';
     this.ctx = ctx;
@@ -30,8 +30,6 @@ class Tree {
     this.pos = [this.topX, this.topY];
 
     this.ctx.drawImage(this.image, this.pos[0], this.pos[1], this.width, this.height);
-    // this.ctx.fillStyle = "rgb(215, 232, 250, 0.4)";
-    // this.ctx.fillRect(this.pos[0] + this.width * 0.05, this.pos[1] + this.height * 0.05, this.width * 0.9, this.height * 0.7)
 
     this.rect = [
       this.pos[0] + this.width * 0.05,
@@ -39,6 +37,7 @@ class Tree {
       this.pos[0] + this.width * 0.9,
       this.pos[1] + this.height * 0.7]
    
+    this.makeClickListener(ecosystem);
   }
 
   animate() {
@@ -52,6 +51,35 @@ class Tree {
     this.height += this.increment;
     this.topX -= (this.increment / 2);
   }
+
+
+  makeClickListener(ecosystem) {
+
+    let coordinates = [
+      this.pos[0] + this.width * 0.5,
+      this.pos[1] + this.height * 0.05,
+      this.pos[0] + this.width * 0.9,
+      this.pos[1] + this.height * 0.7
+    ]
+
+    document.addEventListener('click', () => {
+      let x = event.pageX;
+      let y = event.pageY;
+      if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
+        ecosystem.photosynthesis = true;
+        ecosystem.displayText("tree");
+        ecosystem.sun.count = 0;
+        if (ecosystem.carbonLocation === "sky") {
+          ecosystem.carbonFunnel = "tree";
+          ecosystem.carbonDestination = "ground";
+          ecosystem.carbonMoving = true;
+        }
+      }
+    })
+
+  }
+
+
 
 }
 

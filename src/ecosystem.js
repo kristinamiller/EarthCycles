@@ -140,7 +140,6 @@ class Ecosystem {
     if (!this.userHasClicked) {
       this.displayText("start-carbon");
     }
-    // this.displayText("start-carbon");
     
     this.sun.draw(this.backgroundHeight, this.backgroundTop, this);
     this.mushroom.draw(this.backgroundHeight, this.backgroundTop);
@@ -155,7 +154,6 @@ class Ecosystem {
       this.tree.animate();
       this.sun.animate();
     } else {
-      this.makeTreeListener();
       this.makeSunListener();
     }
 
@@ -303,31 +301,6 @@ class Ecosystem {
     })
   }
 
-  // tree 
-  makeTreeListener() {
-    let that = this;
-
-    document.addEventListener('click', function (event) {
-      
-      let coordinates = [
-        that.tree.pos[0] + that.tree.width * 0.05,
-        that.tree.pos[1] + that.tree.height * 0.05,
-        that.tree.pos[0] + that.tree.width * 0.9,
-        that.tree.pos[1] + that.tree.height * 0.7];
-        let x = event.pageX;
-        let y = event.pageY;
-      if (x > coordinates[0] && x < coordinates[2] && y > coordinates[1] && y < coordinates[3]) {
-        that.photosynthesis = true;
-        that.displayText("tree");
-        that.sun.count = 0;
-        if (that.carbonLocation === "sky") {
-          that.carbonFunnel = "tree";
-          that.carbonDestination = "ground";
-          that.carbonMoving = true;
-        }
-      }
-    })
-  }
   makeSunListener() {
     let that = this;
 
