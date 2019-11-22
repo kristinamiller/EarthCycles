@@ -97,9 +97,6 @@ class Raindrop {
   }
 
 
-
-
-
 }
 
 export default Raindrop;
